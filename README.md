@@ -1,10 +1,10 @@
 # Custom Jellyfin theme called Orphues
 
-80% Vibe coded, 20% coded with vibes
-Custom CSS and JavaScript for Jellyfin
-Works on desktop, tablets and cellphones
-Works on Jellyfin 12.4
-Pulls Font from Google
+- 80% Vibe coded, 20% coded with vibes
+- Custom CSS and JavaScript for Jellyfin
+- Works on desktop, tablets and cellphones
+- Works on Jellyfin 12.4
+- Pulls Font from Google
 
 ## What is included
 
