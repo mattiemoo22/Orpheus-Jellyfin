@@ -5,6 +5,7 @@
 - Works on desktop, tablets and cellphones
 - Works on Jellyfin 12.4
 - Pulls Font from Google
+- You need to create your own library icons for movies, series etc..
 
 ## What is included
 
