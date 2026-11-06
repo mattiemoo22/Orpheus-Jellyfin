@@ -1,0 +1,2330 @@
+/* === LAYER 1: lavender accent === */
+:root {
+  --lv: #b9a2e6;            /* main lavender */
+  --lv-hover: #a58bdc;      /* slightly deeper, for hover */
+  --lv-rgb: 185 162 230;
+  --lv-ink: #1b1230;        /* dark text used on top of lavender */
+}
+
+:root,
+:root[data-theme] {
+  --jf-palette-primary-main: var(--lv);
+  --jf-palette-primary-mainChannel: 185 162 230;
+  --jf-palette-primary-light: var(--lv);
+  --jf-palette-primary-dark: var(--lv-hover);
+  --jf-palette-primary-contrastText: var(--lv-ink);
+  --jf-palette-secondary-main: var(--lv);
+  --jf-palette-secondary-mainChannel: 185 162 230;
+  --jf-palette-secondary-contrastText: var(--lv-ink);
+}
+
+/* Leftover Jellyfin blue: spinners, progress bars, sliders, accent links */
+.mdl-spinner__layer-1,
+.mdl-spinner__layer-2,
+.mdl-spinner__layer-3,
+.mdl-spinner__layer-4 {
+  border-color: var(--lv);
+}
+
+.playbackProgress > div,
+.sliderMarker.watched,
+.mdl-slider-background-lower,
+progress::-webkit-progress-value,
+progress::-moz-progress-bar,
+progress[aria-valuenow]::before {
+  background-color: var(--lv);
+}
+
+.button-accent-flat {
+  color: var(--lv) !important;
+}
+
+.mdl-slider {
+  color: var(--lv);
+}
+
+.mdl-slider::-webkit-slider-thumb {
+  background: var(--lv);
+}
+
+.mdl-slider::-moz-range-thumb {
+  background: var(--lv);
+}
+
+::selection {
+  background: var(--lv);
+  color: var(--lv-ink);
+}
+/* Library tile titles: rotated to run parallel to the strips */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.card[data-type="CollectionFolder"] .cardBox,
+.card[data-type="UserView"] .cardBox {
+  position: relative;
+  container-type: inline-size;
+}
+
+.card[data-type="CollectionFolder"] .cardFooter,
+.card[data-type="UserView"] .cardFooter {
+  position: static !important;
+  padding: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+
+.card[data-type="CollectionFolder"] .cardText-first,
+.card[data-type="UserView"] .cardText-first {
+  position: absolute !important;
+  left: 27%;
+  bottom: 7%;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif !important;
+  font-size: 2rem !important;       /* fallback */
+  font-size: 6.5cqw !important;       /* scales with the tile width */
+  font-weight: 800 !important;
+  -webkit-text-stroke: 0.02em #fff;
+  line-height: 1 !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transform: rotate(-78.7deg);      /* same lean as the strips */
+  transform-origin: left bottom;
+  pointer-events: none;
+}
+
+.card[data-type="CollectionFolder"] .cardText-first::after,
+.card[data-type="UserView"] .cardText-first::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0.07em;
+  min-height: 3px;
+  margin-top: 0.15em;
+  background: var(--lv, #b9a2e6);
+}
+
+.card[data-type="CollectionFolder"] .cardText-secondaryText,
+.card[data-type="UserView"] .cardText-secondaryText {
+  display: none !important;
+}
+/* ===== MattFlix · 04 rows-and-cards ===== */
+:root {
+  --mf-purple: #a855f7;
+  --mf-purple-deep: #7c3aed;
+  --mf-purple-glow: rgba(168, 85, 247, 0.55);
+  --mf-card-radius: 0.55em;
+}
+
+/* --- Row titles --- */
+.sectionTitle,
+.sectionTitle-cards {
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.35s ease, text-shadow 0.35s ease, font-weight 0.35s ease;
+}
+.verticalSection.mf-in-view .sectionTitle,
+.verticalSection.mf-in-view .sectionTitle-cards {
+  color: #fff;
+  font-weight: 800;
+  text-shadow: 0 0 14px var(--mf-purple-glow), 0 0 28px rgba(168, 85, 247, 0.25);
+}
+
+/* --- Poster cards --- */
+.cardScalable,
+.cardImageContainer,
+.cardContent {
+  border-radius: var(--mf-card-radius) !important;
+}
+.cardBox,
+.cardBox:hover,
+.card:hover .cardBox {
+  transform: none !important;
+  box-shadow: none !important;
+}
+.cardImageContainer {
+  overflow: hidden;
+  background-color: #14111c;
+}
+
+/* Card text: clean and legible */
+.cardText {
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+.cardText-first {
+  font-weight: 600;
+  color: #fff;
+}
+.cardText-secondary {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Progress bar: bolder, purple */
+.itemProgressBar {
+  height: 6px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.itemProgressBarForeground {
+  background: linear-gradient(90deg, var(--mf-purple-deep), var(--mf-purple)) !important;
+  border-radius: 999px;
+  box-shadow: 0 0 8px var(--mf-purple-glow);
+}
+
+/* Badges (unwatched count, watched tick) */
+.countIndicator,
+.playedIndicator {
+  background: var(--mf-purple-deep) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+}
+
+/* --- Hover: none. Kill the default overlay and its extra buttons --- */
+.cardOverlayContainer {
+  background: none !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+.cardOverlayButton:not(.cardOverlayFab-primary) {
+  display: none !important;
+}
+
+/* --- Play button: frosted purple glass pill, bottom-left, only when clicked/focused --- */
+.cardBox:focus-within .cardOverlayContainer,
+.cardBox:active .cardOverlayContainer {
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+.cardOverlayFab-primary {
+  position: absolute !important;
+  top: auto !important;
+  right: auto !important;
+  left: 0.6em !important;
+  bottom: 0.6em !important;
+  margin: 0 !important;
+  transform: none !important;
+  width: 3.4em !important;
+  height: 1.9em !important;
+  border-radius: 999px !important;
+  background: rgba(139, 92, 246, 0.35) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(196, 160, 255, 0.45) !important;
+  box-shadow: 0 0 14px var(--mf-purple-glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: #fff !important;
+}
+.cardOverlayFab-primary .material-icons {
+  font-size: 1.3em;
+}
+/* Detail pages: 06 hero+episodes, 10 mobile, 07 purple glass layer. Paste after your 01 tokens block. */
+
+/* 06 detail-hero-episodes (from Netflin, Modern layout, desktop-scoped). Needs chunk 01 tokens first. */
+/* ═══════════════════════════════════════════════════════════════════════
+ * 7. Detail page
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+    --nf-hero-height: 100vh;
+    --nf-hero-logo: 24vh;
+    --nf-hero-logo-width: 36%;
+    --nf-hero-pad: 3.3vw;
+    --nf-hero-fs: clamp(15px, 8px + 0.55vw, 22px);
+    --nf-hero-veil: 0.98;
+    --nf-hero-blur: 22px;
+    --nf-appbar: 48px; /* MUI dense toolbar */
+}
+
+#itemDetailPage {
+    --nf-hero-band: calc(var(--nf-hero-fs) * (6.9 + var(--nf-band-subtitle, 0) + var(--nf-band-original, 0)) + var(--nf-hero-pad));
+}
+
+.layout-desktop #itemDetailPage:has(.nameContainer .subtitle) {
+    --nf-band-subtitle: 2.3;
+    --nf-hero-height: 65vh;
+    --nf-hero-logo: 19vh;
+}
+
+.layout-desktop #itemDetailPage:has(.nameContainer .originalTitle:not(.hide)) {
+    --nf-band-original: 1.8;
+}
+
+.itemName,
+.parentName {
+    color: var(--nf-text);
+    font-weight: 700;
+}
+
+.mediaInfoOfficialRating,
+.mediaInfoText {
+    border-color: var(--nf-outline);
+    border-radius: var(--nf-radius-xs);
+}
+
+.detailRibbon {
+    background: transparent;
+}
+
+/* ── Hero: backdrop ──────────────────────────────────────────────────────── */
+
+.layout-desktop body:has(#itemDetailPage:not(.hide) .detailImageContainer :is(.portraitCard, .backdropCard)):not(:has(#itemDetailPage:not(.hide) .detailImageContainer .cardImageIcon.person, #itemDetailPage:not(.hide) .programGuideSection:not(.hide))) .backgroundContainer.withBackdrop {
+    background-color: transparent;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop {
+    height: var(--nf-hero-height);
+    margin-top: calc(-1 * var(--nf-appbar));
+    background-attachment: scroll;
+    background-position: center 20%;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop::after,
+.layout-desktop #itemDetailPage:has(.recordingFields:not(.hide) .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContainer > .detailImageContainer .cardScalable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, transparent 20%),
+        linear-gradient(77deg, rgb(0 0 0 / 0.8) 0%, rgb(0 0 0 / 0.35) 40%, transparent 70%);
+    pointer-events: none;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailImageContainer {
+    display: none;
+}
+
+/* ── Hero: episode still ─────────────────────────────────────────────────── */
+.layout-desktop #itemDetailPage:has(.detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContainer > .detailImageContainer {
+    --nf-still-w: min(32vw, 44rem);
+    display: block;
+    position: absolute;
+    right: var(--nf-gutter);
+    top: calc(var(--nf-hero-band) - var(--nf-hero-pad) - var(--nf-still-w) * 9 / 16);
+    width: var(--nf-still-w);
+    z-index: 3;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContainer > .detailImageContainer .card {
+    position: relative !important;
+    float: none;
+    left: 0 !important;
+    top: 0;
+    width: 100% !important;
+    max-width: none;
+    margin: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContainer > .detailImageContainer .cardScalable {
+    border-radius: var(--nf-radius-lg);
+    box-shadow:
+        0 0 0 1px rgb(255 255 255 / 0.14),
+        0 1.2em 2.5em rgb(0 0 0 / 0.6);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailLogo {
+    display: block;
+    left: var(--nf-gutter);
+    right: calc(100% - var(--nf-gutter) - var(--nf-hero-logo-width));
+    width: auto;
+    height: var(--nf-hero-logo);
+    top: calc(var(--nf-hero-height) - var(--nf-appbar) - var(--nf-hero-band) - var(--nf-hero-logo));
+    background-position: left bottom;
+    background-size: contain;
+    filter: drop-shadow(0 2px 12px rgb(0 0 0 / 0.5));
+    z-index: 3;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailLogo:not(.hide) ~ .detailPageWrapperContainer .nameContainer > .itemName.parentNameLast {
+    display: none;
+}
+
+/* ── Hero: info block ────────────────────────────────────────────────────── */
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageWrapperContainer {
+    margin-top: calc(-1 * var(--nf-hero-band));
+    min-height: 0;
+    position: relative;
+    z-index: 2;
+    background: none; /* core: noBackdropTransparency */
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageWrapperContainer::before {
+    --nf-veil-rise: calc(var(--nf-hero-logo));
+    --nf-veil-ramp: calc(var(--nf-veil-rise) + var(--nf-hero-band) - var(--nf-hero-pad) + 0.5em);
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--nf-veil-rise));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: rgb(var(--nf-bg-rgb) / var(--nf-hero-veil));
+    -webkit-backdrop-filter: blur(var(--nf-hero-blur)) saturate(1.15);
+    backdrop-filter: blur(var(--nf-hero-blur)) saturate(1.15);
+    --nf-veil-mask: linear-gradient(180deg,
+        transparent 0,
+        rgb(0 0 0 / 0.3) calc(var(--nf-veil-ramp) * 0.15),
+        rgb(0 0 0 / 0.52) calc(var(--nf-veil-ramp) * 0.3),
+        rgb(0 0 0 / 0.68) calc(var(--nf-veil-ramp) * 0.45),
+        rgb(0 0 0 / 0.8) calc(var(--nf-veil-ramp) * 0.6),
+        rgb(0 0 0 / 0.89) calc(var(--nf-veil-ramp) * 0.75),
+        rgb(0 0 0 / 0.96) calc(var(--nf-veil-ramp) * 0.88),
+        #000 var(--nf-veil-ramp));
+    -webkit-mask-image: var(--nf-veil-mask);
+    mask-image: var(--nf-veil-mask);
+    pointer-events: none;
+}
+
+/* ── Hero: collections ───────────────────────────────────────────────────── */
+.layout-desktop #itemDetailPage:has(.collectionItems:not(.hide)) {
+    --nf-hero-height: calc(var(--nf-hero-band) + 16vh);
+    --nf-hero-logo: calc(16vh - var(--nf-appbar) - 1.5rem);
+    --nf-content-top: 0.75em;
+    --nf-children-gap: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.collectionItems:not(.hide)):has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageWrapperContainer::before {
+    -webkit-mask-image: var(--nf-veil-mask), linear-gradient(to top right, #000 50%, transparent);
+    mask-image: var(--nf-veil-mask), linear-gradient(to top right, #000 50%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+#itemDetailPage .collectionItems :is(.sectionTitleContainer, .itemsContainer) {
+    padding-inline: 0; /* the section is already on the gutter */
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailRibbon {
+    text-shadow: 0 1px 10px rgb(0 0 0 / 0.65);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    box-sizing: border-box;
+    height: auto;
+    min-height: var(--nf-hero-band);
+    margin-top: 0;
+    padding: 0 var(--nf-gutter) var(--nf-hero-pad);
+    font-size: var(--nf-hero-fs);
+    text-align: left;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) :is(.itemMiscInfo-primary, .mainDetailButtons) {
+    justify-content: flex-start;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailRibbon > .infoWrapper {
+    flex: none;
+    max-width: 60%;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer {
+    display: block;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemName {
+    font-size: 2.8em;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    white-space: normal;
+    text-shadow: 0 2px 16px rgb(0 0 0 / 0.5);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > .itemName:not(.parentNameLast),
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > .parentName ~ .itemName {
+    font-size: 1.6em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > .itemName.originalTitle {
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.3;
+    color: var(--nf-text-dim);
+    margin: 0.3em 0 0;
+    text-shadow: none;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary {
+    color: var(--nf-text-2);
+    font-size: 1.05em;
+    font-weight: 500;
+    gap: 0.25em 0.75em;
+    margin: 0.6em 0 0 !important; /* core sets margin-bottom inline */
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary > .mediaInfoItem {
+    margin-right: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary > .mediaInfoOfficialRating {
+    padding: 0.05em 0.45em;
+    font-size: 0.85em;
+    line-height: 1.5;
+}
+
+:root .anime-tag-badge.anime-tag-badge.colored {
+    height: 1.6em;
+    padding: 0 0.55em !important;
+    border: 0;
+    border-radius: var(--nf-radius-xs);
+    color: var(--nf-text-2);
+    font-weight: 600;
+    line-height: 1.6em;
+    text-shadow: none;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo .endsAt {
+    display: block;
+    color: var(--nf-text-dim);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .mainDetailButtons {
+    gap: 0.65em;
+    margin: 1.3em 0 0;
+    font-size: 1em;
+}
+
+/* ── Hero: body ──────────────────────────────────────────────────────────── */
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContent {
+    padding: var(--nf-content-top, 3.5em) var(--nf-gutter) 0 !important;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(20em, 1fr);
+    column-gap: 4vw;
+    row-gap: 1.75em;
+    align-items: start;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection > * {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection > .detailSectionContent {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection > .itemDetailsGroup {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection > .trackSelections {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection:has(> .trackSelections.hide) {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailSection > :is(.nextUpSection, #listChildrenCollapsible, .programGuideSection, .collectionItems) {
+    margin-top: var(--nf-children-gap, 1.5em);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageSecondaryContainer {
+    padding-top: 1.5em;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard), .recordingFields .recordingButton):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailLogo:not(.hide) ~ .detailPageWrapperContainer .nameContainer > .parentName {
+    display: none;
+}
+
+/* ── Episodes ────────────────────────────────────────────────────────────── */
+
+.layout-desktop #itemDetailPage .vertical-list:has(> .listItem-largeImage) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(24em, 100%), 1fr));
+    gap: 2.2em 1.4vw;
+    padding-right: 0;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage {
+    display: block;
+    padding: 0.6em 0.6em 0.9em;
+    margin: -0.6em -0.6em -0.9em;
+    border-radius: var(--nf-radius-lg);
+    background: transparent;
+    transition: background-color var(--nf-dur-2) var(--nf-ease-out);
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage:hover,
+.layout-desktop #itemDetailPage .listItem-largeImage:focus-within {
+    background: var(--nf-fill-hover);
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage > .listItem-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "image    image"
+        "title    buttons"
+        "meta     meta"
+        "overview overview";
+    align-items: center;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemImage-large {
+    grid-area: image;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    border-radius: var(--nf-radius);
+    background-size: cover;
+    overflow: hidden;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemImage-large::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: inherit;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s var(--nf-ease);
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage:hover .listItemImage-large::before {
+    transform: scale(1.04);
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemBody {
+    display: contents;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemBodyText:first-child {
+    grid-area: title;
+    min-width: 0;
+    padding-top: 0.7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--nf-text);
+    font-size: 1.02em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemMediaInfo {
+    grid-area: meta;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25em 0.75em;
+    white-space: nowrap;
+    color: var(--nf-text-dim);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemMediaInfo > .mediaInfoItem {
+    margin: 0;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemMediaInfo .starIcon {
+    margin-right: 0.15em;
+    font-size: 1.25em;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItem-overview {
+    grid-area: overview;
+    color: var(--nf-text-mute);
+    font-size: 0.88em;
+    line-height: 1.45;
+    margin-top: 0.5em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listViewUserDataButtons {
+    grid-area: buttons;
+    padding: 0.7em 0 0 0.5em;
+    gap: 0;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemButton {
+    color: var(--nf-text-mute);
+    font-size: 0.85em;
+    padding: 0.35em;
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItemButton:hover {
+    color: var(--nf-text);
+}
+
+.layout-desktop #itemDetailPage .listItem-largeImage .listItem-bottomoverview {
+    display: none;
+}
+
+/* 10 detail-mobile (from Netflin "7g Mobile layout": hero + episodes on phones). Add after 01 and 06. */
+/* ═══════════════════════════════════════════════════════════════════════
+ * 7g. Mobile layout
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+.layout-mobile {
+    --nf-m-top: calc(var(--nf-appbar) + env(safe-area-inset-top));
+    --nf-m-hero: 50vh;
+    --nf-m-logo: 20vh;
+    --nf-fs-h2: clamp(1.25rem, 1rem + 0.75vw, 1.6rem);
+}
+
+.layout-mobile .MuiAppBar-root.MuiAppBar-positionFixed {
+    padding-top: env(safe-area-inset-top);
+}
+
+.layout-mobile .MuiAppBar-root.MuiAppBar-positionFixed + div[aria-hidden="true"] {
+    min-height: var(--nf-m-top);
+}
+
+/* ── Detail pages: hero ──────────────────────────────────────────────────── */
+
+.layout-mobile #itemDetailPage .itemBackdrop {
+    height: var(--nf-m-hero);
+    margin-top: calc(-1 * var(--nf-m-top)) !important; /* core: -48px !important */
+    background-position: center 20%;
+}
+
+.layout-mobile #itemDetailPage .itemBackdrop:not([style*="url("], [data-src], .lazy, .lazy-hidden) {
+    height: var(--nf-m-top);
+}
+
+.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop[style*="url("] {
+    height: calc(var(--nf-m-top) + 12rem);
+    overflow: hidden;
+    isolation: isolate;
+    background-size: 0 0;
+}
+
+.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop::before {
+    background: linear-gradient(0deg, var(--nf-bg) 0, rgb(var(--nf-bg-rgb) / 0.5) 15%, transparent 40%);
+}
+
+.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)):has(.itemBackdrop[style*="url("]) .detailPageWrapperContainer {
+    position: relative;
+    margin-top: -10rem;
+    background: none;
+}
+
+.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop::after {
+    content: "";
+    position: absolute;
+    inset: -3rem;
+    z-index: -1;
+    background: inherit;
+    background-size: 5rem 5rem;
+    background-repeat: repeat;
+    filter: blur(40px) saturate(2) brightness(1.15);
+}
+
+.layout-mobile #itemDetailPage .itemBackdrop::before {
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.55), transparent 25%),
+        linear-gradient(0deg,
+            var(--nf-bg) 0,
+            var(--nf-bg) 4%,
+            rgb(var(--nf-bg-rgb) / 0.88) 22%,
+            rgb(var(--nf-bg-rgb) / 0.66) 34%,
+            rgb(var(--nf-bg-rgb) / 0.38) 48%,
+            rgb(var(--nf-bg-rgb) / 0.14) 70%,
+            transparent 90%);
+}
+
+.layout-mobile #itemDetailPage .detailLogo:not(.hide) {
+    display: block;
+    left: 0;
+    right: 0;
+    top: calc(var(--nf-m-hero) - var(--nf-m-top) - var(--nf-m-logo) - 0.5rem);
+    width: min(80%, 28rem);
+    height: var(--nf-m-logo);
+    margin: 0 auto;
+    background-position: center bottom;
+    background-size: contain;
+    filter: drop-shadow(0 2px 12px rgb(0 0 0 / 0.5));
+    z-index: 2;
+}
+
+.layout-mobile #itemDetailPage .detailLogo:not(.hide) ~ .detailPageWrapperContainer .nameContainer > :is(.parentName, .itemName.parentNameLast) {
+    display: none;
+}
+
+.layout-mobile #itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer {
+    display: none;
+}
+
+.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 1.25rem;
+}
+
+.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer .card,
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .card {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    width: min(45%, 13rem);
+    max-width: none;
+    margin: 0;
+    filter: none;
+}
+
+.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer .cardScalable,
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .cardScalable {
+    overflow: hidden;
+    border-radius: var(--nf-radius-lg);
+    box-shadow: 0 0 0 1px var(--nf-line), var(--nf-shadow-3);
+}
+
+.layout-mobile #itemDetailPage .detailRibbon {
+    padding: 0 var(--nf-gutter);
+    text-align: center;
+}
+
+.layout-mobile #itemDetailPage .infoWrapper {
+    padding-left: 0;
+}
+
+.layout-mobile #itemDetailPage :is(.nameContainer, .itemMiscInfo, .mainDetailButtons) {
+    justify-content: center;
+    text-align: center;
+}
+
+.layout-mobile #itemDetailPage .itemName {
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+}
+
+.layout-mobile #itemDetailPage .nameContainer > .itemName.originalTitle {
+    margin: 0.3em 0 0;
+    color: var(--nf-text-dim);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.layout-mobile #itemDetailPage .itemMiscInfo-primary {
+    flex-wrap: wrap;
+    gap: 0.25em 0.75em;
+    margin: 0.6rem 0 0 !important; /* core sets margin-bottom inline */
+    color: var(--nf-text-2);
+}
+
+.layout-mobile #itemDetailPage .itemMiscInfo-primary > .mediaInfoItem {
+    margin: 0;
+}
+
+.layout-mobile #itemDetailPage .mainDetailButtons {
+    flex-wrap: wrap;
+    gap: 0.65em;
+    margin: 1.25rem 0 0;
+    padding: 0;
+}
+
+@media (orientation: portrait) and (max-width: 40em) {
+    .layout-mobile #itemDetailPage .mainDetailButtons .detailButton.btnPlay {
+        flex: 1 0 100%;
+        justify-content: center;
+        margin: 0 0 0.35em;
+    }
+}
+
+/* ── Detail pages: episodes ──────────────────────────────────────────────── */
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) {
+    --nf-m-still: min(78vw, 26rem);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .detailLogo {
+    display: none;
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop {
+    height: calc(var(--nf-m-top) + 2rem + var(--nf-m-still) * 9 / 16);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop::before {
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.6), transparent 25%),
+        linear-gradient(0deg,
+            var(--nf-bg) 0,
+            var(--nf-bg) 4%,
+            rgb(var(--nf-bg-rgb) / 0.92) 22%,
+            rgb(var(--nf-bg-rgb) / 0.83) 45%,
+            rgb(var(--nf-bg-rgb) / 0.69) 75%,
+            rgb(var(--nf-bg-rgb) / 0.62) 100%);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: calc(-0.5rem - var(--nf-m-still) * 9 / 16) 0 1.25rem;
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .card {
+    z-index: auto; /* core's 3 puts the still's shadow over the title */
+    width: var(--nf-m-still);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer {
+    position: relative; /* above the still's shadow */
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer > .parentName {
+    display: block;
+    margin: 0;
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer > .parentName ~ .itemName:not(.originalTitle) {
+    margin: 0.35em 0 0;
+    color: var(--nf-text-2);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.3;
+}
+
+/* ── Detail pages: below the hero ────────────────────────────────────────── */
+
+.layout-mobile #itemDetailPage .detailPagePrimaryContent {
+    padding: 1.75rem var(--nf-gutter) 0 !important; /* core: 5% !important */
+}
+
+.layout-mobile #itemDetailPage :is(.detailSectionContent > .tagline, .detailSectionContent .overview, .itemDetailsGroup) {
+    max-width: none;
+}
+
+/* ── Detail pages: episode list ──────────────────────────────────────────── */
+
+.layout-mobile #itemDetailPage .listItem-largeImage {
+    display: block;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    background: none;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage > .listItem-content {
+    align-items: center;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemImage-large {
+    flex: none;
+    width: min(40%, 11rem);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    border-radius: var(--nf-radius);
+    background-size: cover;
+    overflow: hidden;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemImageButton {
+    width: 2rem;
+    height: 2rem;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemBody {
+    min-width: 0;
+    padding: 0 0.25rem 0 0.85rem;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemBodyText:first-child {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: var(--nf-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em 0.75em;
+    margin-top: 0.3em;
+    color: var(--nf-text-dim);
+    font-size: 0.8rem;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo > .mediaInfoItem {
+    margin: 0;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo > :is(.starRatingContainer, .endsAt) {
+    display: none;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listViewUserDataButtons {
+    gap: 0;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage .listItemButton {
+    padding: 0.35em;
+    color: var(--nf-text-mute);
+    font-size: 0.85em;
+}
+
+.layout-mobile #itemDetailPage .listItem-largeImage :is(.listItem-bottomoverview, .listItem-overview) {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    color: var(--nf-text-mute);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+/* 07 purple-glass-layer: lavender accent + liquid-glass buttons, rounded-square cast, scroll recede.
+   Add AFTER 01 and 06 (and after 10 if you use it). Uses Netflin vars (--nf-*) from 01. */
+
+:root {
+    --jf-accent: #B9A6E8;
+    --jf-accent-rgb: 185 166 232;
+    --jf-glass: rgb(255 255 255 / 0.09);
+    --jf-glass-hover: rgb(var(--jf-accent-rgb) / 0.22);
+    --jf-glass-line: rgb(255 255 255 / 0.22);
+    --jf-glass-blur: 18px;
+    --jf-glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(255 255 255 / 0.05), 0 8px 22px rgb(0 0 0 / 0.35);
+}
+
+/* ── Liquid-glass round icon buttons (movie, series, season, collection pages) ── */
+.mainDetailButtons .detailButton {
+    background: var(--jf-glass);
+    border: 1px solid var(--jf-glass-line);
+    color: #fff;
+    -webkit-backdrop-filter: blur(var(--jf-glass-blur)) saturate(1.6);
+    backdrop-filter: blur(var(--jf-glass-blur)) saturate(1.6);
+    box-shadow: var(--jf-glass-shadow);
+    transition: background-color var(--nf-dur-1, 150ms) ease, border-color var(--nf-dur-1, 150ms) ease, transform var(--nf-dur-1, 150ms) ease;
+}
+
+.mainDetailButtons .detailButton:hover,
+.mainDetailButtons .detailButton:focus-visible {
+    background: var(--jf-glass-hover);
+    border-color: rgb(var(--jf-accent-rgb) / 0.75);
+}
+
+.mainDetailButtons .detailButton:active {
+    transform: scale(0.94);
+}
+
+/* Play: medium liquid-glass button, same row and height as the round buttons */
+.mainDetailButtons .detailButton.btnPlay {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: auto;
+    min-height: 2.6em;
+    align-self: stretch;
+    margin: 0 !important;
+    padding: 0 1.15em 0 0.9em !important;
+    border: 1px solid rgb(255 255 255 / 0.34);
+    border-radius: 14px;
+    background:
+        linear-gradient(180deg, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.04) 55%),
+        rgb(var(--jf-accent-rgb) / 0.2);
+    color: #fff;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.45);
+    -webkit-backdrop-filter: blur(22px) saturate(1.8);
+    backdrop-filter: blur(22px) saturate(1.8);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.55),
+        inset 0 -10px 18px rgb(var(--jf-accent-rgb) / 0.14),
+        0 10px 26px rgb(0 0 0 / 0.35);
+}
+
+.mainDetailButtons .detailButton.btnPlay:hover,
+.mainDetailButtons .detailButton.btnPlay:focus-visible {
+    background:
+        linear-gradient(180deg, rgb(255 255 255 / 0.32), rgb(255 255 255 / 0.06) 55%),
+        rgb(var(--jf-accent-rgb) / 0.34);
+    border-color: rgb(var(--jf-accent-rgb) / 0.8);
+    color: #fff;
+}
+
+.mainDetailButtons .detailButton.btnPlay .detailButton-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35em;
+}
+
+.mainDetailButtons .detailButton.btnPlay .detailButton-icon {
+    font-size: 1.5em !important;
+}
+
+/* Label comes from the button's title (e.g. "Riproduci"). Delete this rule for an icon-only button. */
+.mainDetailButtons .detailButton.btnPlay::after {
+    content: attr(title);
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+/* Active states (watched / favourite) use the accent instead of green / red */
+.mainDetailButtons .playstatebutton-icon-played,
+.mainDetailButtons .ratingbutton-icon-withrating {
+    color: var(--jf-accent) !important;
+}
+
+/* Progress bars (resume position on episodes and cards) */
+.itemProgressBarForeground {
+    background: var(--jf-accent) !important;
+}
+
+/* ── Cast and crew: rounded squares instead of circles ───────────────────── */
+:is(#castCollapsible, #guestCastCollapsible) .cardScalable {
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    border: 1px solid var(--jf-glass-line);
+}
+
+:is(#castCollapsible, #guestCastCollapsible) :is(.cardPadder, .cardImageContainer, .blurhash-canvas, .cardContent) {
+    border-radius: 18px;
+}
+
+:is(#castCollapsible, #guestCastCollapsible) .card:hover .cardScalable {
+    box-shadow:
+        0 0 0 3px var(--nf-bg, #101010),
+        0 0 0 5px var(--jf-accent);
+}
+
+:is(#castCollapsible, #guestCastCollapsible) .card:hover .cardText-first,
+:is(#castCollapsible, #guestCastCollapsible) .card:hover .cardText-first a {
+    color: var(--jf-accent);
+}
+
+/* ── Episodes (season pages, desktop grid from 06): lavender hover ───────── */
+.layout-desktop #itemDetailPage .listItem-largeImage:hover,
+.layout-desktop #itemDetailPage .listItem-largeImage:focus-within {
+    background: rgb(var(--jf-accent-rgb) / 0.09);
+    box-shadow: inset 0 0 0 1px rgb(var(--jf-accent-rgb) / 0.3);
+}
+
+/* ── Scroll recede: hero backdrop blurs and dims, logo tucks away ────────── */
+/* Needs scroll-driven animations (Chromium 115+, Safari 26+); elsewhere it simply stays static. */
+@supports (animation-timeline: scroll()) {
+    @keyframes jf-hero-recede {
+        to {
+            filter: blur(14px) brightness(0.5);
+            transform: scale(1.06);
+        }
+    }
+
+    @keyframes jf-logo-tuck {
+        to {
+            opacity: 0.15;
+            transform: translateY(-6vh) scale(0.72);
+        }
+    }
+
+    #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .itemBackdrop {
+        animation: jf-hero-recede linear both;
+        animation-timeline: scroll(nearest block);
+        animation-range: 0 65vh;
+        will-change: filter, transform;
+    }
+
+    .layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .detailLogo {
+        transform-origin: left bottom;
+        animation: jf-logo-tuck linear both;
+        animation-timeline: scroll(nearest block);
+        animation-range: 0 45vh;
+    }
+}
+
+/* ── Mobile: backdrop stretched behind the meta row and buttons, fading into the page ── */
+/* Knobs: --jf-m-hero = total backdrop height, --jf-m-overlap = how far it runs behind the content.
+   Content still starts at (hero - overlap), so the page below does not move. */
+.layout-mobile {
+    --jf-m-hero: 100svh;
+    --jf-m-overlap: 34vh;
+    --jf-m-fade-above: 10vh;
+    --nf-m-hero: calc(var(--jf-m-hero) - var(--jf-m-overlap)); /* keeps the title logo sitting just above the content */
+}
+
+.layout-mobile #itemDetailPage .itemBackdrop[style*="url("] {
+    height: var(--jf-m-hero);
+    margin-bottom: calc(-1 * var(--jf-m-overlap));
+    background-size: cover;
+    background-position: center 20%;
+}
+
+.layout-mobile #itemDetailPage .detailPageWrapperContainer {
+    position: relative;
+    z-index: 2;
+    background: none;
+}
+
+.layout-mobile #itemDetailPage .itemBackdrop[style*="url("] ~ .detailPageWrapperContainer::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--jf-m-fade-above));
+    height: calc(var(--jf-m-fade-above) + var(--jf-m-overlap));
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+        transparent 0,
+        rgb(var(--nf-bg-rgb, 16 16 16) / 0.18) 45%,
+        rgb(var(--nf-bg-rgb, 16 16 16) / 0.4) 100%);
+}
+
+.layout-mobile #itemDetailPage .detailPageWrapperContainer :is(.itemMiscInfo, .nameContainer) {
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
+}
+
+/* ── Mobile: lighter bottom fade on the full-screen hero, so the glass buttons still sit over the picture ── */
+.layout-mobile #itemDetailPage .itemBackdrop[style*="url("]::before {
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.5), transparent 22%),
+        linear-gradient(0deg,
+            var(--nf-bg, #101010) 0,
+            rgb(var(--nf-bg-rgb, 16 16 16) / 0.85) 12%,
+            rgb(var(--nf-bg-rgb, 16 16 16) / 0.5) 30%,
+            transparent 55%);
+}
+
+/* ── Mobile episode pages: same full-screen hero (the small still card is hidden) ── */
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop[style*="url("] {
+    height: var(--jf-m-hero);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop[style*="url("]::before {
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.5), transparent 22%),
+        linear-gradient(0deg,
+            var(--nf-bg, #101010) 0,
+            rgb(var(--nf-bg-rgb, 16 16 16) / 0.85) 12%,
+            rgb(var(--nf-bg-rgb, 16 16 16) / 0.5) 30%,
+            transparent 55%);
+}
+
+.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer {
+    display: none !important;
+}
+
+/* ── Mobile: hero animates out as you scroll down to the blurb ── */
+@supports (animation-timeline: scroll()) {
+    @keyframes jf-hero-out-m {
+        to {
+            filter: blur(22px) brightness(0.35);
+            transform: scale(1.12);
+            opacity: 0.1;
+        }
+    }
+
+    @keyframes jf-logo-out-m {
+        to {
+            opacity: 0;
+            transform: translateY(-5vh) scale(0.85);
+        }
+    }
+
+    .layout-mobile #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .itemBackdrop[style*="url("] {
+        animation: jf-hero-out-m linear both;
+        animation-timeline: scroll(nearest block);
+        animation-range: 0 70vh;
+    }
+
+    .layout-mobile #itemDetailPage .detailLogo:not(.hide) {
+        animation: jf-logo-out-m linear both;
+        animation-timeline: scroll(nearest block);
+        animation-range: 0 35vh;
+    }
+}
+/* Actor (person) pages: desktop + mobile. Standalone: paste at the very bottom of Dashboard Custom CSS.
+   Mobile portrait = full-screen portrait hero like the movie pages. Desktop = big sticky portrait + large name.
+   Tablets in landscape keep the default centred card. */
+
+/* ═════════════ DESKTOP ═════════════ */
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) {
+    --jf-a-photo: clamp(14rem, 22vw, 28rem);
+    --jf-a-accent: 185 166 232;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .itemBackdrop {
+    height: 2.5rem;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailPagePrimaryContainer {
+    display: grid;
+    grid-template-columns: var(--jf-a-photo) minmax(0, 1fr);
+    column-gap: 4.5vw;
+    align-items: start;
+    padding: 2rem var(--nf-gutter, 3.3%) 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) :is(.detailRibbon, .infoWrapper, .detailPagePrimaryContent, .detailSection, .detailSectionContent) {
+    display: contents;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailPagePrimaryContainer :is(.nameContainer, .mainDetailButtons, .detailSectionContent > *, .detailSection > *) {
+    grid-column: 2;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Portrait: sticky, rounded, glass edge, soft lavender glow */
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer {
+    display: block;
+    position: sticky;
+    top: calc(var(--nf-appbar, 48px) + 1.5rem);
+    grid-column: 1;
+    grid-row: 1 / span 30;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer .card {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer .cardScalable {
+    isolation: isolate;
+    border-radius: 22px;
+    box-shadow:
+        0 0 0 1px rgb(255 255 255 / 0.16),
+        0 30px 70px rgb(0 0 0 / 0.65),
+        0 0 90px rgb(185 166 232 / 0.2);
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer .cardScalable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), inset 0 0 0 1px rgb(255 255 255 / 0.2);
+    pointer-events: none;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer :is(.cardImageContainer, .cardPadder, [class*="cardPadder"]) {
+    border-radius: 22px;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer .cardImageContainer {
+    overflow: visible;
+    contain: none;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailImageContainer .cardImageContainer::before {
+    content: "";
+    position: absolute;
+    inset: 4% -6% -6%;
+    z-index: -1;
+    border-radius: inherit;
+    background: inherit;
+    background-size: cover;
+    filter: blur(48px) saturate(1.3);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Name, born/place line, buttons, links, bio */
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .nameContainer {
+    order: -6;
+    display: block;
+    margin: 0;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .nameContainer .itemName {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.5rem, 1.4rem + 3vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    white-space: normal;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > p:not(.overview) {
+    order: -5;
+    margin: 0.4rem 0 0;
+    color: rgb(255 255 255 / 0.62);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > p:not(.overview) a {
+    color: rgb(255 255 255 / 0.88);
+    font-weight: 500;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > p:not(.overview) a:hover {
+    color: #B9A6E8;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .mainDetailButtons {
+    order: -4;
+    justify-content: flex-start;
+    gap: 0.65em;
+    margin: 1.5rem 0 0;
+    font-size: 1rem;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .mainDetailButtons .detailButton {
+    width: 2.6em;
+    height: 2.6em;
+    border-radius: 14px;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > .itemExternalLinks {
+    order: -3;
+    margin: 1.5rem 0 0 !important;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > .overview {
+    order: -2;
+    max-width: 75ch;
+    margin: 1.5rem 0 0;
+    color: rgb(255 255 255 / 0.86);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSectionContent > .overview-controls {
+    order: -2;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSection > .detailVerticalSection {
+    margin-top: 2.5rem;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSection > .detailVerticalSection + .detailVerticalSection {
+    margin-top: 1rem;
+}
+
+.layout-desktop #itemDetailPage:has(.detailImageContainer .cardImageIcon.person) .detailSection > .detailVerticalSection .itemsContainer {
+    padding-right: 0;
+}
+
+/* ═════════════ MOBILE (portrait) ═════════════ */
+@media (orientation: portrait) {
+    .layout-mobile {
+        --jf-a-hero: min(145vw, 82svh);   /* picture height (matches a 2:3 portrait) */
+        --jf-a-overlap: 26vw;             /* how far name + buttons climb up over the picture (bigger = text higher) */
+        --jf-a-gap: 12px;                 /* side margin so the rounded corners show */
+        --jf-a-radius: 26px;              /* corner rounding */
+    }
+
+    /* The picture: inset, rounded, and masked so it fades to nothing at the bottom */
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer {
+        display: block !important;
+        position: relative !important;
+        z-index: 0;
+        box-sizing: border-box;
+        width: calc(100vw - 2 * var(--jf-a-gap)) !important;
+        max-width: none !important;
+        height: var(--jf-a-hero) !important;
+        margin: 0.5rem 0 calc(-1 * var(--jf-a-overlap)) calc(50% - 50vw + var(--jf-a-gap)) !important;
+        overflow: hidden;
+        border-radius: var(--jf-a-radius);
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgb(0 0 0 / 0.6) 72%, rgb(0 0 0 / 0.22) 88%, transparent 100%);
+        mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgb(0 0 0 / 0.6) 72%, rgb(0 0 0 / 0.22) 88%, transparent 100%);
+    }
+
+    /* soft darkening at the top so the home / back buttons stay readable */
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 18%);
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer .card {
+        position: absolute !important;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer :is(.cardBox, .cardScalable, .cardContent, .cardImageContainer) {
+        position: absolute !important;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        aspect-ratio: auto !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer .cardImageContainer {
+        background-size: cover !important;
+        background-position: center 12% !important;
+        background-repeat: no-repeat !important;
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer :is(.cardPadder, .cardOverlayContainer, .cardText) {
+        display: none !important;
+    }
+
+    /* name, buttons, bio and everything below sit in front of the picture and have no
+       solid background of their own, so the faded picture shows through behind the text */
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) :is(.infoWrapper > :not(.detailImageContainer), .detailPagePrimaryContent, .detailPageSecondaryContainer, .detailSection, .detailRibbon) {
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .nameContainer {
+        text-shadow: 0 2px 16px rgb(0 0 0 / 0.8), 0 0 4px rgb(0 0 0 / 0.5);
+    }
+
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .nameContainer .itemName {
+        font-size: 2.25rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+    }
+
+    /* glass buttons under the name */
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .mainDetailButtons .detailButton {
+        border: 1px solid rgb(255 255 255 / 0.28);
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgb(255 255 255 / 0.2), rgb(255 255 255 / 0.04)), rgb(185 166 232 / 0.12);
+        color: #fff;
+        -webkit-backdrop-filter: blur(18px) saturate(1.6);
+        backdrop-filter: blur(18px) saturate(1.6);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 8px 22px rgb(0 0 0 / 0.35);
+    }
+
+    /* bio gets a side margin instead of touching the screen edge */
+    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .detailPagePrimaryContent {
+        padding: 1.5rem 5% 0 !important;
+    }
+
+    /* picture fades and blurs away as you scroll down to the bio (iOS 26+, recent Android Chrome) */
+    @supports (animation-timeline: scroll()) {
+        @keyframes jf-actor-out {
+            to {
+                filter: blur(22px) brightness(0.35);
+                transform: scale(1.08);
+                opacity: 0;
+            }
+        }
+
+        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer {
+            animation: jf-actor-out linear both;
+            animation-timeline: scroll(nearest block);
+            animation-range: 0 45vh;
+        }
+    }
+}
+/* ==========================================================
+   Liquid Glass Player Controls (slim + subtle) - Jellyfin web
+   Paste into Dashboard > General > Custom CSS code
+   ========================================================== */
+
+:root {
+  /* Accent */
+  --lav: #b69cff;
+  --lav-soft: rgba(182, 156, 255, 0.25);
+  --lav-glow: 0 0 8px rgba(182, 156, 255, 0.4);
+
+  /* Glass (lighter, more transparent) */
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(182, 156, 255, 0.04) 100%
+  );
+  --glass-blur: blur(20px) saturate(160%);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  /* Shape */
+  --radius-bar: 16px;
+  --radius-btn: 10px;
+}
+
+/* ---------- Slim floating control bar ---------- */
+.videoOsdBottom {
+  position: fixed !important;
+  left: 3vw !important;
+  right: 3vw !important;
+  bottom: max(1.5vh, env(safe-area-inset-bottom)) !important;
+  width: auto !important;
+  padding: 4px 14px 6px !important;
+  background: var(--glass-bg) !important;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-bar);
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+/* Very faint sheen on the top edge */
+.videoOsdBottom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 30%
+  );
+  pointer-events: none;
+}
+
+/* ---------- Time text ---------- */
+.osdTimeText,
+.endsAtText,
+.osdPositionText,
+.osdDurationText {
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 0.8em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Seek bar (thin) ---------- */
+.osdPositionSlider,
+.osdControls .emby-slider {
+  height: 16px;
+}
+
+.emby-slider-background-upper,
+.mdl-slider-background-upper,
+.emby-slider-background-lower,
+.mdl-slider-background-lower {
+  height: 3px !important;
+  border-radius: 999px;
+}
+
+.emby-slider-background-upper,
+.mdl-slider-background-upper {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+.emby-slider-background-lower,
+.mdl-slider-background-lower {
+  background: linear-gradient(90deg, #8f7bff, var(--lav)) !important;
+  box-shadow: 0 0 6px rgba(182, 156, 255, 0.35);
+}
+
+/* Smaller thumb */
+.osdPositionSlider::-webkit-slider-thumb,
+.osdControls .emby-slider::-webkit-slider-thumb {
+  width: 11px;
+  height: 11px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--lav-soft);
+  transition: transform 0.15s ease;
+}
+.osdPositionSlider::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  background: #fff;
+  border: 0;
+  box-shadow: 0 0 0 3px var(--lav-soft);
+}
+.osdPositionSlider:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+}
+
+/* Chapter ticks: small and faint */
+.sliderMarker.chapterMarker,
+.chapterMarker {
+  background: rgba(255, 255, 255, 0.3) !important;
+  height: 6px !important;
+  border-radius: 2px;
+}
+
+/* Hover / trickplay bubble */
+.sliderBubble {
+  background: var(--glass-bg), rgba(20, 16, 32, 0.65) !important;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: 10px !important;
+  color: #fff !important;
+  box-shadow: var(--glass-shadow);
+}
+.chapterThumb {
+  border-radius: 8px;
+}
+
+/* ---------- Buttons (compact) ---------- */
+.videoOsdBottom .paper-icon-button-light,
+.osdHeader .paper-icon-button-light {
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.4em;
+  border-radius: var(--radius-btn);
+  transition: background 0.2s ease, box-shadow 0.2s ease,
+    transform 0.15s ease, color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .videoOsdBottom .paper-icon-button-light:hover,
+  .osdHeader .paper-icon-button-light:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--lav);
+  }
+}
+
+.videoOsdBottom .paper-icon-button-light:active,
+.osdHeader .paper-icon-button-light:active {
+  transform: scale(0.93);
+  background: rgba(182, 156, 255, 0.15);
+  color: var(--lav);
+}
+
+/* Play/pause: soft pill, no heavy border */
+.btnPause,
+.btnPlay,
+.videoOsdBottom .btnPlayPause {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px !important;
+}
+
+/* Active toggles glow lavender (subtle) */
+.btnToggleSubtitles.buttonActive,
+.btnSubtitles.buttonActive,
+.btnPip.buttonActive,
+.videoOsdBottom .buttonActive {
+  color: var(--lav) !important;
+  text-shadow: var(--lav-glow);
+}
+
+/* Favourite heart */
+.btnUserRating .ratingbutton-icon-withrating,
+.btnUserRating.ratingButton-withrating {
+  filter: drop-shadow(0 0 4px rgba(255, 64, 129, 0.4));
+}
+
+/* ---------- Top bar (minimal) ---------- */
+.osdHeader {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 20, 0.5) 0%,
+    rgba(10, 8, 20, 0) 100%
+  ) !important;
+  padding-top: max(6px, env(safe-area-inset-top));
+}
+.osdHeader .headerBackButton,
+.osdHeader .headerSyncButton,
+.osdHeader .headerCastButton {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-btn);
+  margin: 0 4px;
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 800px) {
+  .videoOsdBottom {
+    left: 6px !important;
+    right: 6px !important;
+    padding: 3px 10px 5px !important;
+    border-radius: 14px;
+  }
+}
+/* ==========================================================
+   Pause screen styling - add to your theme / Custom CSS
+   Uses --lav from the player controls CSS (falls back to lavender)
+   ========================================================== */
+
+.lg-pause {
+  position: fixed;
+  inset: 0;
+  z-index: 0;                /* sits under the control bar, above the video */
+  pointer-events: none;      /* taps still reach the video / controls */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.lg-pause.lg-on {
+  opacity: 1;
+}
+
+/* ---------- Fullscreen backdrop (after 10s) ---------- */
+.lg-pause-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.4s ease, transform 12s ease-out;
+}
+.lg-pause.lg-full .lg-pause-backdrop {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Readability scrims ---------- */
+.lg-pause-scrim {
+  position: absolute;
+  inset: 0;
+}
+/* Always on: soft gradient from the left behind the text */
+.lg-pause-scrim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 6, 16, 0.85) 0%,
+    rgba(8, 6, 16, 0.55) 40%,
+    rgba(8, 6, 16, 0) 75%
+  );
+}
+/* Backdrop stage: extra dimming so the image stays moody */
+.lg-pause-scrim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  background:
+    linear-gradient(90deg, rgba(8, 6, 16, 0.85) 0%, rgba(8, 6, 16, 0.5) 50%, rgba(8, 6, 16, 0.2) 100%),
+    linear-gradient(0deg, rgba(8, 6, 16, 0.75) 0%, rgba(8, 6, 16, 0) 40%);
+}
+.lg-pause.lg-full .lg-pause-scrim::after {
+  opacity: 1;
+}
+
+/* ---------- Content (middle-left) ---------- */
+.lg-pause-content {
+  position: absolute;
+  left: 6vw;
+  top: 50%;
+  max-width: min(540px, 42vw);
+  transform: translate(-18px, -50%);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+}
+.lg-pause.lg-on .lg-pause-content {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.lg-pause-logo {
+  display: block;
+  max-width: 100%;
+  max-height: 170px;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.6));
+}
+
+/* Text fallback when there's no logo */
+.lg-pause-title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: #fff;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.lg-pause-episode {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lav, #b69cff);
+  text-shadow: 0 0 10px rgba(182, 156, 255, 0.45);
+  margin-bottom: 10px;
+}
+
+.lg-pause-blurb {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--lav, #b69cff);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 800px) {
+  .lg-pause-content {
+    left: 5vw;
+    max-width: 58vw;
+  }
+  .lg-pause-logo {
+    max-height: 90px;
+    margin-bottom: 12px;
+  }
+  .lg-pause-blurb {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    -webkit-line-clamp: 4;
+  }
+}.je-pause-screen,
+.pause-screen-overlay {
+  pointer-events: none;
+}
+/* ==========================================================
+   Liquid Glass Skip Button - Jellyfin web (native .skip-button)
+   Paste into Dashboard > General > Custom CSS code
+   ========================================================== */
+
+:root {
+  --skip-lav: #b69cff;
+  --skip-lav-soft: rgba(182, 156, 255, 0.25);
+  --skip-glass-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(182, 156, 255, 0.04) 100%
+  );
+  --skip-glass-blur: blur(20px) saturate(160%);
+  --skip-glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --skip-glass-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- The button (native + legacy plugin selectors) ---------- */
+.skip-button,
+button.skip-button,
+.skip-button.emby-button,
+#skipIntro button,
+#skipIntro .btnSkipIntro,
+.btnSkipIntro {
+  position: fixed !important;
+  right: 3vw !important;
+  left: auto !important;
+  bottom: calc(max(1.5vh, env(safe-area-inset-bottom)) + 110px) !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 10px 20px !important;
+  gap: 8px;
+  align-items: center;
+
+  background: var(--skip-glass-bg) !important;
+  background-color: rgba(20, 16, 32, 0.25) !important;
+  -webkit-backdrop-filter: var(--skip-glass-blur) !important;
+  backdrop-filter: var(--skip-glass-blur) !important;
+  border: var(--skip-glass-border) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--skip-glass-shadow) !important;
+
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 0.95em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+  text-transform: none !important;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Faint top sheen, same as the player bar */
+.skip-button::before,
+#skipIntro button::before,
+.btnSkipIntro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0) 40%
+  );
+  pointer-events: none;
+}
+
+/* Text and icons inside the button */
+.skip-button *,
+#skipIntro button * {
+  color: inherit !important;
+  background: none !important;
+}
+
+.skip-button .material-icons,
+.skip-button .material-symbols-outlined,
+.skip-button svg,
+#skipIntro .material-icons {
+  color: var(--skip-lav) !important;
+  fill: var(--skip-lav) !important;
+  filter: drop-shadow(0 0 4px rgba(182, 156, 255, 0.4));
+}
+
+/* ---------- Hover / focus / press ---------- */
+@media (hover: hover) {
+  .skip-button:hover,
+  #skipIntro button:hover,
+  .btnSkipIntro:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(182, 156, 255, 0.1) 100%
+    ) !important;
+    background-color: rgba(20, 16, 32, 0.3) !important;
+    border-color: rgba(182, 156, 255, 0.4) !important;
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.3),
+      0 0 14px rgba(182, 156, 255, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+    color: #fff !important;
+  }
+}
+
+.skip-button:focus-visible,
+#skipIntro button:focus-visible,
+.btnSkipIntro:focus-visible {
+  outline: none !important;
+  border-color: var(--skip-lav) !important;
+  box-shadow:
+    0 0 0 3px var(--skip-lav-soft),
+    var(--skip-glass-shadow) !important;
+}
+
+.skip-button:active,
+#skipIntro button:active,
+.btnSkipIntro:active {
+  background: rgba(182, 156, 255, 0.15) !important;
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 800px) {
+  .skip-button,
+  button.skip-button,
+  #skipIntro button,
+  .btnSkipIntro {
+    right: 6px !important;
+    bottom: calc(max(1.5vh, env(safe-area-inset-bottom)) + 80px) !important;
+    padding: 8px 16px !important;
+    border-radius: 12px !important;
+    font-size: 0.88em !important;
+  }
+}
+
+/* Ensure the skip button is clickable, but its wrapper never blocks video taps */
+.skip-button-container,
+.skipIntro-container,
+.intro-skipper-container {
+  pointer-events: none !important;
+}
+
+.skip-button,
+.skipIntro,
+.btnSkipIntro {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+}
+/* ==========================================================
+   Liquid Glass "Up Next" Popup - small card, bottom right
+   Paste into Dashboard > General > Custom CSS code
+   (replaces the previous Up Next CSS)
+   ========================================================== */
+
+:root {
+  --next-lav: #b69cff;
+  --next-lav-soft: rgba(182, 156, 255, 0.25);
+  --next-glass-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(182, 156, 255, 0.04) 100%
+  );
+  --next-glass-blur: blur(20px) saturate(160%);
+  --next-glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --next-glass-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- The card: fixed, small, bottom right ---------- */
+html body .upNextContainer.upNextContainer {
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  right: calc(env(safe-area-inset-right, 0px) + 12px) !important;
+  bottom: calc(max(1.5vh, env(safe-area-inset-bottom)) + 80px) !important;
+
+  width: 300px !important;
+  min-width: 0 !important;
+  max-width: calc(100vw - 24px) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  padding: 12px 14px !important;
+
+  background: var(--next-glass-bg) !important;
+  background-color: rgba(20, 16, 32, 0.3) !important;
+  -webkit-backdrop-filter: var(--next-glass-blur) !important;
+  backdrop-filter: var(--next-glass-blur) !important;
+  border: var(--next-glass-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--next-glass-shadow) !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  overflow: hidden;
+  z-index: 1001 !important;
+
+  /* empty areas of the card pass taps through to the video (play/pause) */
+  pointer-events: none !important;
+}
+
+/* Only show as a flex column while Jellyfin has it visible,
+   so its own show/hide still works */
+html body .upNextContainer.upNextContainer:not(.hide):not(.upNextContainer-hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px;
+}
+
+/* A hidden card must never catch taps */
+html body .upNextContainer.hide,
+html body .upNextContainer.upNextContainer-hidden,
+html body .upNextContainer.hide *,
+html body .upNextContainer.upNextContainer-hidden * {
+  pointer-events: none !important;
+}
+
+/* Faint sheen on the top edge */
+html body .upNextContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 30%
+  );
+  pointer-events: none;
+}
+
+/* ---------- Inner layout: compact, no poster ---------- */
+html body .upNextContainer .upNextDialog-poster,
+html body .upNextContainer .upNextDialog-overview {
+  display: none !important;
+}
+
+html body .upNextContainer .upNextDialog-info,
+html body .upNextContainer .upNextDialog-buttons {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+html body .upNextContainer .upNextDialog-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px;
+  min-width: 0;
+}
+
+/* ---------- Text ---------- */
+html body .upNextContainer .upNextDialog-nextVideoText {
+  margin: 0 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.7em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Countdown: lavender accent */
+html body .upNextContainer .upNextDialog-countdownText {
+  color: var(--next-lav) !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(182, 156, 255, 0.45);
+}
+
+html body .upNextContainer .upNextDialog-title {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 0.95em !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html body .upNextContainer .upNextDialog-mediainfo {
+  margin: 0 !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  font-size: 0.78em !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Buttons ---------- */
+html body .upNextContainer .upNextDialog-buttons {
+  display: flex !important;
+  gap: 8px;
+  margin-top: 6px !important;
+}
+
+html body .upNextContainer .upNextDialog-buttons button,
+html body .upNextContainer .btnStartNow,
+html body .upNextContainer .btnHide {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  min-height: 38px;
+  margin: 0 !important;
+  padding: 8px 12px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 0.88em !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+
+  cursor: pointer;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+
+/* Start Now = primary */
+html body .upNextContainer .btnStartNow {
+  background: rgba(182, 156, 255, 0.16) !important;
+  border-color: rgba(182, 156, 255, 0.35) !important;
+  color: #fff !important;
+}
+
+@media (hover: hover) {
+  html body .upNextContainer .upNextDialog-buttons button:hover,
+  html body .upNextContainer .btnStartNow:hover,
+  html body .upNextContainer .btnHide:hover {
+    background: rgba(182, 156, 255, 0.22) !important;
+    border-color: rgba(182, 156, 255, 0.5) !important;
+    box-shadow: 0 0 14px rgba(182, 156, 255, 0.25) !important;
+    color: #fff !important;
+  }
+}
+
+/* Tap / click highlight on both Hide and Start Now */
+html body .upNextContainer .upNextDialog-buttons button:active,
+html body .upNextContainer .btnStartNow:active,
+html body .upNextContainer .btnHide:active {
+  background: rgba(182, 156, 255, 0.4) !important;
+  border-color: var(--next-lav) !important;
+  box-shadow:
+    0 0 0 3px var(--next-lav-soft),
+    0 0 16px rgba(182, 156, 255, 0.5) !important;
+  color: #fff !important;
+  transform: scale(0.96);
+}
+
+html body .upNextContainer .upNextDialog-buttons button:focus-visible {
+  outline: none !important;
+  border-color: var(--next-lav) !important;
+  box-shadow: 0 0 0 3px var(--next-lav-soft) !important;
+}
+
+/* Taps on button text/icons always land on the button itself */
+html body .upNextContainer .upNextDialog-buttons button * {
+  color: inherit !important;
+  pointer-events: none !important;
+}
+
+/* ---------- Phones: slightly smaller, still bottom right ---------- */
+@media (max-width: 800px), (max-height: 500px) {
+  html body .upNextContainer.upNextContainer {
+    width: 270px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    bottom: calc(max(1.5vh, env(safe-area-inset-bottom)) + 70px) !important;
+  }
+
+  html body .upNextContainer .upNextDialog-buttons button,
+  html body .upNextContainer .btnStartNow,
+  html body .upNextContainer .btnHide {
+    min-height: 42px;
+    font-size: 0.85em !important;
+  }
+}/* Android emergency fix: stop custom overlays from blocking the video */
+#orp-pc,
+.je-pause-screen,
+.pause-screen-overlay,
+[class*="pause" i],
+[class*="overlay" i],
+[class*="skip" i] {
+  pointer-events: none !important;
+}
+
+/* Keep real controls clickable */
+button,
+a,
+input,
+select,
+textarea,
+[is="emby-button"],
+[is="emby-slider"],
+.emby-slider-container,
+.videoOsdBottom,
+.osdHeader,
+.skip-button,
+.skipIntro,
+.btnSkipIntro,
+.orp-b {
+  pointer-events: auto !important;
+}
