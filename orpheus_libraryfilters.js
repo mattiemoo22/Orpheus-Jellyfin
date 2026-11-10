@@ -1,121 +1,166 @@
-/* ==========================================================================
-   Jellyfin – Liquid-glass library headers   (JS Injector plugin, JS only)
-   Works on top of the Abyss theme. Self-contained: injects its own CSS.
-
-   On a Movies / TV / Collections library page it adds three frosted-glass tabs:
-     [ Library name ]  [ Favourites ]  [ Genres ]
-   - Library name  -> your normal library grid (untouched, alphabet picker intact)
-   - Favourites    -> everything you've favourited in this library
-   - Genres        -> one home-page style row per genre, small glass header on each
-
-   It reads data through Jellyfin's own ApiClient. It never changes filters,
-   page size or any saved library settings.
-   ========================================================================== */
+/*! Orpheus: library headers (JS Injector plugin, JS only)
+ *  Companion to Orpheus.css (the Netflin-based theme). Self-contained: injects its own CSS and reads
+ *  its colours, glass and radii from the theme's --nf-* tokens, with fallbacks so it still works alone.
+ *
+ *  On a Movies / TV / Collections library page it adds three glass tabs:
+ *    [ Library name ]  [ Favourites ]  [ Genres ]
+ *  - Library name -> your normal library grid (untouched, alphabet picker intact)
+ *  - Favourites   -> everything you've favourited in this library
+ *  - Genres       -> one home-page style row per genre, titled like Netflin's row titles
+ *
+ *  It reads data through Jellyfin's own ApiClient. It never changes filters,
+ *  page size or any saved library settings. */
 (function () {
   'use strict';
   if (window.__lxGlass) return;
   window.__lxGlass = true;
 
-  /* ------------------------------ settings ------------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 1. Settings
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   var CFG = {
-    hideNativeTabs: true,   // hide Abyss's own tab pill on library pages (set false to keep it)
-    rowLimit: 30,           // titles per genre row
-    purple: '168, 85, 247', // accent R, G, B
-    panelBg: '14, 14, 16'   // Favourites / Genres background (R, G, B) - matches the library page
+    hideNativeTabs: true,   // hide the theme's own tab pill on library pages (set false to keep it)
+    rowLimit: 30            // titles per genre row
   };
 
-  /* -------------------------------- CSS ---------------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 2. CSS
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   var CSS = [
-    ':root{--lxg-p:' + CFG.purple + ';--lxg-bg:' + CFG.panelBg + ';}',
+    /* ── Tokens: taken from Orpheus.css, with fallbacks ─────────────────── */
+    '.lxg-bar,.lxg-panel{',
+    '--lxg-acc:var(--nf-accent-rgb,185 162 230);',
+    '--lxg-bg:var(--nf-bg-rgb,16 16 16);',
+    '--lxg-text:var(--nf-text,#fff);',
+    '--lxg-text-2:var(--nf-text-2,#e5e5e5);',
+    '--lxg-dim:var(--nf-text-dim,#b3b3b3);',
+    '--lxg-mute:var(--nf-text-mute,#8c8c8c);',
+    '--lxg-surface:var(--nf-surface-2,#232323);',
+    '--lxg-fill-hover:var(--nf-fill-hover,rgb(255 255 255 / 0.08));',
+    '--lxg-fill-tag:var(--nf-fill-tag,rgb(255 255 255 / 0.12));',
+    '--lxg-outline:var(--nf-outline,rgb(255 255 255 / 0.5));',
+    '--lxg-glass:var(--nf-glass,rgb(255 255 255 / 0.09));',
+    '--lxg-glass-line:var(--nf-glass-line,rgb(255 255 255 / 0.22));',
+    '--lxg-glass-shadow:var(--nf-glass-shadow,inset 0 1px 0 rgb(255 255 255 / 0.35),0 8px 22px rgb(0 0 0 / 0.35));',
+    '--lxg-blur:var(--nf-glass-blur,18px);',
+    '--lxg-radius:var(--nf-card-radius,0.55em);',
+    '--lxg-radius-xs:var(--nf-radius-xs,2px);',
+    '--lxg-img-bg:var(--nf-img-bg,#14111c);',
+    '--lxg-font:var(--nf-font,inherit);',
+    '--lxg-fs-h2:var(--nf-fs-h2,1.25rem);',
+    '--lxg-ease:var(--nf-ease,cubic-bezier(0.5,0,0.1,1));',
+    '--lxg-ease-out:var(--nf-ease-out,cubic-bezier(0.2,0,0,1));',
+    '}',
 
-    /* shared liquid-glass surface (tab bar, messages, arrows) */
+    /* ── Glass surface (tab bar, messages, arrows) ──────────────────────── */
     '.lxg-glass{position:relative;isolation:isolate;',
-    'background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));',
-    '-webkit-backdrop-filter:blur(22px) saturate(160%) brightness(1.05);backdrop-filter:blur(22px) saturate(160%) brightness(1.05);',
-    'border:1px solid rgba(255,255,255,.14);',
-    'box-shadow:0 8px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.06);}',
-    '.lxg-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;',
-    'background:linear-gradient(115deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 34%,rgba(255,255,255,0) 70%,rgba(255,255,255,.08) 100%);opacity:.5;}',
-    '@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.lxg-glass{background:rgba(34,34,38,.94);}}',
+    'border:1px solid var(--lxg-glass-line);background:var(--lxg-glass);',
+    '-webkit-backdrop-filter:blur(var(--lxg-blur)) saturate(1.6);backdrop-filter:blur(var(--lxg-blur)) saturate(1.6);',
+    'box-shadow:var(--lxg-glass-shadow);}',
+    '@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.lxg-glass{background:rgb(34 34 38 / 0.94);}}',
 
-    /* tab bar */
-    '.lxg-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1150;display:flex;gap:4px;padding:5px;border-radius:999px;max-width:calc(100vw - 24px);}',
-    '.lxg-bar{transition:transform .32s cubic-bezier(.3,.8,.3,1),opacity .25s;}',
+    /* ── Tab bar ────────────────────────────────────────────────────────── */
+    '.lxg-bar{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:1150;display:flex;gap:4px;padding:5px;border-radius:999px;max-width:calc(100vw - 24px);',
+    'font-family:var(--lxg-font);transition:transform .32s var(--lxg-ease),opacity .25s;}',
     '.lxg-bar.lxg-hide{transform:translateX(-50%) translateY(-220%);opacity:0;pointer-events:none;}',
-    '.lxg-tab{position:relative;border:0;background:transparent;color:rgba(255,255,255,.72);padding:.62rem 1.35rem;border-radius:999px;',
-    'font:inherit;font-weight:600;font-size:1.02rem;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw;',
-    'transition:color .2s,background .25s,box-shadow .25s;}',
-    '.lxg-tab:hover{color:#fff;background:rgba(255,255,255,.08);}',
-    '.lxg-tab.on{color:#fff;background:linear-gradient(135deg,rgba(var(--lxg-p),.26),rgba(var(--lxg-p),.08));',
-    'box-shadow:0 0 12px rgba(var(--lxg-p),.35),inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(var(--lxg-p),.5);}',
+    '.lxg-tab{position:relative;border:0;background:transparent;color:var(--lxg-dim);padding:.6rem 1.3rem;border-radius:999px;',
+    'font:inherit;font-weight:600;font-size:.95rem;letter-spacing:.005em;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw;',
+    'transition:color .2s,background-color .25s,box-shadow .25s;}',
+    '.lxg-tab:hover{color:var(--lxg-text);background:var(--lxg-fill-hover);}',
+    '.lxg-tab:focus-visible{outline:2px solid #fff;outline-offset:2px;}',
+    '.lxg-tab.on{color:var(--lxg-text);font-weight:700;background:rgb(var(--lxg-acc) / 0.22);',
+    'box-shadow:inset 0 0 0 1px rgb(var(--lxg-acc) / 0.6),0 0 12px rgb(var(--lxg-acc) / 0.3);}',
 
-    /* panel that covers the native grid on Favourites / Genres (dark, like the library page) */
+    /* ── Panel that covers the native grid on Favourites / Genres ───────── */
     '.lxg-panel{position:fixed;inset:0;z-index:1000;overflow-y:auto;overflow-x:hidden;display:none;',
-    'padding:92px clamp(14px,3vw,44px) 70px;',
-    'background:radial-gradient(1000px 420px at 50% -10%,rgba(var(--lxg-p),.05),transparent 65%),rgb(var(--lxg-bg));',
-    'scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent;}',
+    'padding:92px var(--nf-gutter,clamp(14px,3.3%,44px)) 70px;font-family:var(--lxg-font);color:var(--lxg-text-2);',
+    'background:radial-gradient(1000px 420px at 50% -10%,rgb(var(--lxg-acc) / 0.06),transparent 65%),rgb(var(--lxg-bg));',
+    'scrollbar-width:none;}',
+    '.lxg-panel::-webkit-scrollbar{display:none;}',
     '.lxg-panel.show{display:block;}',
 
-    /* grid (favourites) */
-    '.lxg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px 16px;}',
+    /* ── Grid (favourites, one genre) ───────────────────────────────────── */
+    '.lxg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 16px;}',
     '.lxg-grid .lxg-card{width:auto;}',
 
-    /* section headers: small, minimal glass pill with a thin purple glow outline */
-    '.lxg-row{margin:0 0 22px;}',
-    '.lxg-rowhead{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:.5rem;padding:.26rem .7rem .26rem .6rem;border-radius:999px;margin:0 0 10px;',
-    'background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.02));',
-    '-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);',
-    'border:1px solid rgba(var(--lxg-p),.55);',
-    'box-shadow:0 0 8px rgba(var(--lxg-p),.28),inset 0 1px 0 rgba(255,255,255,.22);}',
-    '.lxg-rowhead h3{margin:0;font-size:.92rem;font-weight:600;color:#fff;letter-spacing:.01em;line-height:1.2;}',
-    '.lxg-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--lxg-p));box-shadow:0 0 6px 1px rgba(var(--lxg-p),.7);}',
-    '.lxg-count{font-size:.72rem;color:rgba(255,255,255,.55);padding:0 .1rem;}',
-    '.lxg-click{cursor:pointer;transition:box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent;}',
-    '.lxg-click:hover,.lxg-click:focus-visible{outline:none;box-shadow:0 0 12px rgba(var(--lxg-p),.5),inset 0 1px 0 rgba(255,255,255,.3);}',
-    '.lxg-chev{font-size:1rem;line-height:1;color:rgba(255,255,255,.6);margin-left:-.1rem;}',
-    '.lxg-back{font:inherit;color:#fff;border-width:1px;border-style:solid;}',
-    '.lxg-toprow{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 14px;}',
-    '.lxg-toprow .lxg-rowhead{margin:0;}',
+    /* ── Row titles: Netflin-style, with the lavender dot ───────────────── */
+    '.lxg-row{margin:0 0 26px;}',
+    '.lxg-rowhead{display:inline-flex;align-items:center;gap:.55rem;margin:0 0 .35rem;color:var(--lxg-dim);',
+    'transition:color .35s ease;-webkit-tap-highlight-color:transparent;}',
+    '.lxg-rowhead h3{margin:0;font:700 var(--lxg-fs-h2)/1.35 var(--lxg-font);letter-spacing:-.005em;color:inherit;',
+    'transition:color .35s ease,text-shadow .35s ease;}',
+    '.lxg-dot{width:6px;height:6px;flex:none;border-radius:50%;background:rgb(var(--lxg-acc));box-shadow:0 0 6px 1px rgb(var(--lxg-acc) / 0.6);}',
+    '.lxg-count{padding:.12rem .5rem;border-radius:var(--lxg-radius-xs);background:var(--lxg-fill-tag);color:var(--lxg-text-2);',
+    'font-size:.72rem;font-weight:600;font-variant-numeric:tabular-nums;}',
+    '.lxg-click{cursor:pointer;}',
+    '.lxg-click:hover,.lxg-click:focus-visible{color:var(--lxg-text);outline:none;}',
+    '.lxg-click:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:var(--lxg-radius-xs);}',
+    '.lxg-chev{font-size:1.25rem;line-height:1;color:var(--lxg-mute);transition:transform .25s var(--lxg-ease),color .25s var(--lxg-ease-out);}',
+    '.lxg-click:hover .lxg-chev,.lxg-click:focus-visible .lxg-chev{color:var(--lxg-text);transform:translateX(.2em);}',
+    /* the row in view lights up, like on the home page */
+    '.lxg-row.lxg-in-view .lxg-rowhead{color:var(--lxg-text);}',
+    '.lxg-row.lxg-in-view .lxg-rowhead h3{font-weight:800;text-shadow:0 0 14px rgb(168 85 247 / 0.55),0 0 28px rgb(168 85 247 / 0.25);}',
+
+    '.lxg-toprow{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:0 0 16px;}',
+    '.lxg-toprow .lxg-rowhead{margin:0;color:var(--lxg-text);}',
+
+    /* outlined button (Netflin "cancel" look) */
+    '.lxg-btn{font:600 .875rem/1.2 var(--lxg-font);color:var(--lxg-text);background:transparent;border:0;border-radius:var(--nf-radius,4px);',
+    'padding:.5rem 1rem;cursor:pointer;box-shadow:inset 0 0 0 1px var(--lxg-outline);transition:background-color .15s,box-shadow .15s;}',
+    '.lxg-btn:hover{background:var(--lxg-fill-hover);box-shadow:inset 0 0 0 1px #fff;}',
+    '.lxg-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}',
+
+    /* ── Genre rows ─────────────────────────────────────────────────────── */
     '.lxg-scrollwrap{position:relative;}',
     '.lxg-scroller{display:flex;gap:16px;overflow-x:auto;padding:6px 4px 12px;scroll-snap-type:x proximity;scrollbar-width:none;}',
     '.lxg-scroller::-webkit-scrollbar{display:none;}',
     '.lxg-scroller .lxg-card{scroll-snap-align:start;}',
-    '.lxg-arrow{position:absolute;top:calc(50% - 40px);width:42px;height:42px;border-radius:50%;color:#fff;font-size:22px;line-height:1;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;padding:0;}',
+    '.lxg-arrow{position:absolute;top:calc(50% - 40px);width:42px;height:42px;border-radius:50%;color:var(--lxg-text);font-size:22px;line-height:1;cursor:pointer;z-index:2;',
+    'display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s,background-color .15s;padding:0;}',
+    '.lxg-arrow:hover{background:rgb(var(--lxg-acc) / 0.22);}',
     '.lxg-scrollwrap:hover .lxg-arrow{opacity:1;}',
     '.lxg-arrow.l{left:-8px;}.lxg-arrow.r{right:-8px;}',
-    '.lxg-skel{height:230px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.07),rgba(255,255,255,.03));background-size:200% 100%;animation:lxgsk 1.4s linear infinite;}',
-    '@keyframes lxgsk{to{background-position:-200% 0;}}',
 
-    /* cards */
-    '.lxg-card{flex:0 0 auto;width:150px;color:#fff;text-decoration:none;display:block;}',
-    '.lxg-poster{aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:#1c1c20;position:relative;',
-    'box-shadow:0 6px 18px rgba(0,0,0,.4);transition:transform .25s,box-shadow .25s;}',
+    /* ── Loading skeleton ───────────────────────────────────────────────── */
+    '.lxg-skel{height:230px;border-radius:var(--lxg-radius);background:var(--lxg-surface);}',
+    '@media (prefers-reduced-motion:no-preference){.lxg-skel{animation:lxgsk 1.6s ease-in-out infinite;}}',
+    '@keyframes lxgsk{50%{opacity:.45;}}',
+
+    /* ── Cards ──────────────────────────────────────────────────────────── */
+    '.lxg-card{flex:0 0 auto;width:150px;color:var(--lxg-text);text-decoration:none;display:block;-webkit-tap-highlight-color:transparent;}',
+    '.lxg-card:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:var(--lxg-radius);}',
+    '.lxg-poster{aspect-ratio:2/3;border-radius:var(--lxg-radius);overflow:hidden;background:var(--lxg-img-bg);position:relative;transition:box-shadow .25s;}',
     '.lxg-poster img{width:100%;height:100%;object-fit:cover;display:block;}',
-    '.lxg-poster .lxg-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:700;color:rgba(255,255,255,.35);}',
-    '.lxg-card:hover .lxg-poster,.lxg-card:focus-visible .lxg-poster{transform:translateY(-4px);box-shadow:0 10px 26px rgba(0,0,0,.5),0 0 0 1px rgba(var(--lxg-p),.6),0 0 14px rgba(var(--lxg-p),.35);}',
-    '.lxg-t{margin-top:8px;font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
-    '.lxg-y{font-size:.82rem;color:rgba(255,255,255,.55);}',
+    '.lxg-poster .lxg-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:700;color:rgb(255 255 255 / 0.3);}',
+    '@media (hover:hover) and (pointer:fine){.lxg-card:hover .lxg-poster{box-shadow:0 0 0 1px rgb(var(--lxg-acc) / 0.6),0 0 14px rgb(var(--lxg-acc) / 0.3);}}',
+    '.lxg-t{margin-top:8px;font-weight:600;font-size:.875rem;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
+    '.lxg-y{font-size:.8125rem;line-height:1.35;color:var(--lxg-mute);}',
 
-    /* states */
-    '.lxg-msg{margin:60px auto;text-align:center;color:rgba(255,255,255,.65);font-size:1.05rem;max-width:420px;padding:26px 28px;border-radius:24px;}',
+    /* ── States ─────────────────────────────────────────────────────────── */
+    '.lxg-msg{margin:60px auto;text-align:center;color:var(--lxg-dim);font-size:1.05rem;max-width:420px;padding:26px 28px;border-radius:24px;}',
 
-    /* while a panel is open, hide the things that only make sense for the native grid */
+    /* ── While a panel is open, hide what only makes sense for the native grid ── */
     'body.lxg-panel-on header.MuiAppBar-root>.MuiToolbar-root:nth-child(2),body.lxg-panel-on .alphaPicker,body.lxg-panel-on .alphaPicker-fixed-right{visibility:hidden !important;}',
     CFG.hideNativeTabs ? 'body.lxg-on header.MuiAppBar-root>.MuiToolbar-root>.MuiStack-root:first-of-type,body.lxg-on .headerTabs{display:none !important;}' : '',
 
-    /* phones: bar drops below the app-bar icons and sits on the LEFT, clear of the page arrows */
+    /* ── Phones: bar drops below the app-bar icons, on the left, clear of the page arrows ── */
     '@media (max-width:720px){',
-    '.lxg-bar{top:70px;left:12px;transform:none;max-width:calc(100vw - 150px);}',
+    '.lxg-bar{top:calc(70px + env(safe-area-inset-top,0px));left:12px;transform:none;max-width:calc(100vw - 150px);}',
     '.lxg-bar.lxg-hide{transform:translateY(-260%);}',
-    '.lxg-tab{padding:.5rem .8rem;font-size:.9rem;max-width:34vw;}',
-    '.lxg-panel{padding-top:132px;}',
+    '.lxg-tab{padding:.5rem .8rem;font-size:.875rem;max-width:34vw;}',
+    '.lxg-panel{padding-top:calc(132px + env(safe-area-inset-top,0px));}',
     '.lxg-card{width:118px;}',
     '.lxg-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:16px 12px;}',
     '.lxg-arrow{display:none;}',
     '}'
   ].join('\n');
 
-  /* ------------------------------- helpers ------------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 3. Helpers
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -190,8 +235,11 @@
     return { node: head, count: count };
   }
 
-  /* -------------------------------- state -------------------------------- */
-  var S = { key: null, kind: null, libId: null, libName: null, tab: 'library', bar: null, panel: null, tabs: {}, genreToken: 0 };
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 4. State
+   * ═══════════════════════════════════════════════════════════════════════ */
+
+  var S = { key: null, kind: null, libId: null, libName: null, tab: 'library', bar: null, panel: null, tabs: {}, genreToken: 0, viewIO: null };
   var includeTypes = function () {
     return S.kind === 'movies' ? 'Movie' : S.kind === 'boxsets' ? 'BoxSet' : 'Series';
   };
@@ -207,13 +255,17 @@
   }
 
   function teardown() {
+    if (S.viewIO) { S.viewIO.disconnect(); S.viewIO = null; }
     if (S.bar && S.bar.parentNode) S.bar.parentNode.removeChild(S.bar);
     if (S.panel && S.panel.parentNode) S.panel.parentNode.removeChild(S.panel);
     S.bar = S.panel = null; S.key = null; S.genreToken++;
     document.body.classList.remove('lxg-on', 'lxg-panel-on');
   }
 
-  /* ------------------------------- building ------------------------------ */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 5. Building
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function setup(info) {
     teardown();
     S.kind = info.kind; S.libId = info.libId; S.libName = defaultName();
@@ -283,7 +335,10 @@
     S.panel.appendChild(el('div', 'lxg-msg lxg-glass', text));
   }
 
-  /* ------------------------------ favourites ----------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 6. Favourites
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function renderFavourites() {
     var token = ++S.genreToken;
     message('Loading favourites…');
@@ -298,26 +353,31 @@
       var items = (r && r.Items) || [];
       if (!items.length) { message('No favourites yet. Tap the heart on any title and it will show up here.'); return; }
       S.panel.textContent = '';
-      S.panel.appendChild(header('Favourites', String(items.length)).node);
+      var top = el('div', 'lxg-toprow');
+      top.appendChild(header('Favourites', String(items.length)).node);
+      S.panel.appendChild(top);
       var grid = el('div', 'lxg-grid');
       items.forEach(function (it) { grid.appendChild(card(it)); });
       S.panel.appendChild(grid);
     }).catch(function (e) {
-      console.warn('[library-glass] favourites', e);
+      console.warn('[orpheus-library] favourites', e);
       if (token === S.genreToken) message('Could not load favourites.');
     });
   }
 
-  /* ---------------------- show all items in one genre -------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 7. One genre (show all)
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function showGenre(name) {
     var token = ++S.genreToken;
+    if (S.viewIO) { S.viewIO.disconnect(); S.viewIO = null; }
     S.panel.scrollTop = 0;
     S.panel.textContent = '';
 
     var top = el('div', 'lxg-toprow');
-    var back = el('button', 'lxg-rowhead lxg-click lxg-back', '‹  Genres');
+    var back = el('button', 'lxg-btn', '‹  Genres');
     back.type = 'button';
-    back.style.padding = '.26rem .8rem';
     back.addEventListener('click', function () { renderGenres(); });
     top.appendChild(back);
     var h = header(name, '…');
@@ -342,14 +402,18 @@
       grid.textContent = '';
       items.forEach(function (it) { grid.appendChild(card(it)); });
     }).catch(function (e) {
-      console.warn('[library-glass] show all', name, e);
+      console.warn('[orpheus-library] show all', name, e);
       if (token === S.genreToken) grid.textContent = 'Could not load this genre.';
     });
   }
 
-  /* -------------------------------- genres ------------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 8. Genres
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function renderGenres() {
     var token = ++S.genreToken;
+    if (S.viewIO) { S.viewIO.disconnect(); S.viewIO = null; }
     message('Loading genres…');
     whenLibReady(function () {
       return api('Genres', {
@@ -362,11 +426,17 @@
       if (!genres.length) { message('No genres found in this library.'); return; }
       S.panel.textContent = '';
 
+      // lazy-load each row as it approaches the screen
       var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           if (en.isIntersecting) { io.unobserve(en.target); en.target._load(); }
         });
       }, { root: S.panel, rootMargin: '500px 0px' }) : null;
+
+      // the row in the middle of the screen lights up
+      S.viewIO = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { en.target.classList.toggle('lxg-in-view', en.isIntersecting); });
+      }, { root: S.panel, rootMargin: '-30% 0px -30% 0px' }) : null;
 
       genres.forEach(function (g) {
         var row = el('section', 'lxg-row');
@@ -401,20 +471,24 @@
             scroller.textContent = '';
             items.forEach(function (it) { scroller.appendChild(card(it)); });
           }).catch(function (e) {
-            console.warn('[library-glass] genre', g.Name, e);
+            console.warn('[orpheus-library] genre', g.Name, e);
             scroller.textContent = '';
           });
         };
         S.panel.appendChild(row);
         if (io) io.observe(row); else row._load();
+        if (S.viewIO) S.viewIO.observe(row);
       });
     }).catch(function (e) {
-      console.warn('[library-glass] genres', e);
+      console.warn('[orpheus-library] genres', e);
       if (token === S.genreToken) message('Could not load genres.');
     });
   }
 
-  /* ---------------- hide tab bar on scroll down, show on scroll up --------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 9. Hide the tab bar on scroll down, show it on scroll up
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   var lastTop = new WeakMap();
   function showBar() { if (S.bar) S.bar.classList.remove('lxg-hide'); }
   function onScroll(e) {
@@ -436,7 +510,10 @@
   }
   document.addEventListener('scroll', onScroll, { capture: true, passive: true });
 
-  /* ------------------------------- lifecycle ----------------------------- */
+  /* ═══════════════════════════════════════════════════════════════════════
+   * 10. Lifecycle
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   function tick() {
     try {
       var info = routeInfo();
@@ -447,12 +524,12 @@
         setup(info);
         S.key = key;
       }
-    } catch (err) { console.warn('[library-glass]', err); }
+    } catch (err) { console.warn('[orpheus-library]', err); }
   }
 
   window.addEventListener('hashchange', tick);
   document.addEventListener('viewshow', tick);
   setInterval(tick, 700);
-  console.info('[library-glass] loaded');
+  console.info('[orpheus-library] loaded');
   tick();
 })();
