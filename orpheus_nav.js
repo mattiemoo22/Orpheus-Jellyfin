@@ -10,7 +10,10 @@
  *      DASHBOARD: harp + Home + Back (left) | profile (right)
  *  - the nav is aligned to the live position of the stock buttons on every refresh (nothing is cached),
  *    so it can never end up below the bar
- *  - route changes are detected even when Jellyfin navigates without a "hashchange" event */
+ *  - route changes are detected even when Jellyfin navigates without a "hashchange" event
+ *  - VIDEO PLAYER: this script stops touching the header completely. It only sets the class "orp-player" on <html>
+ *    (the theme CSS uses it to make the player's top bar transparent) and, if the player has no Back button at all,
+ *    adds one inside the player's own header, so it shows and hides together with the rest of the player UI. */
 (function () {
   'use strict';
   if (window.__orpheusAppBar) return;
@@ -29,7 +32,8 @@
     ],
     homeHash: /^#!?\/?(home(\.html)?)?(\?.*)?$/i,
     dashHash: /^#!?\/?(dashboard|configurationpage|plugins?|serversettings|metadata|networking|library|librarysettings|librarydisplay|encodingsettings|notificationsettings|userprofiles|useredit|usernew|userlibraryaccess|userparentalcontrol|userpassword|scheduledtasks?|logs?|activity|apikeys|devices?|playbackconfiguration|streamingsettings|dlnasettings|dlnaprofiles?|branding)/i,
-    hideOnHash: /^#!?\/?(video|login|selectserver|wizard|forgotpassword|queue|nowplaying)/i
+    hideOnHash: /^#!?\/?(video|login|selectserver|wizard|forgotpassword|queue|nowplaying)/i,
+    playerHash: /^#!?\/?video/i
   };
 
   /* ═══ 2. Icons ═══ */
@@ -49,7 +53,9 @@
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.8" ' +
     'stroke-linecap="round" stroke-linejoin="round">' + ICONS.harp + '</svg>') + '")';
 
-  /* ═══ 3. CSS ═══ */
+  /* ═══ 3. CSS ═══
+   * Every rule that styles the STOCK site header is scoped to html:not(.orp-player), so none of it can ever
+   * reach the video player's top bar. The player's bar is styled by the theme CSS (section 13). */
 
   const css = `
 :root{
@@ -65,42 +71,44 @@
   --AppBar-background:transparent;--AppBar-color:inherit;
 }
 
-/* ── The bar: one permanent, solid, flat strip that holds every button ── */
-.skinHeader,.skinHeader-withBackground,.skinHeader.semiTransparent,.skinHeader.skinHeader-blurred,
-.MuiAppBar-root,.MuiAppBar-colorPrimary,.MuiAppBar-colorDefault,.MuiAppBar-colorTransparent{
+/* ── The bar: one permanent, solid, flat strip that holds every button (not in the video player) ── */
+html:not(.orp-player) :is(.skinHeader,.skinHeader-withBackground,.skinHeader.semiTransparent,.skinHeader.skinHeader-blurred,
+.MuiAppBar-root,.MuiAppBar-colorPrimary,.MuiAppBar-colorDefault,.MuiAppBar-colorTransparent){
   background:rgb(var(--nf-bg-rgb,16 16 16))!important;background-image:none!important;
   box-shadow:0 1px 0 var(--nf-line,rgb(255 255 255 / 0.08))!important;border:0!important;
   backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
   opacity:1!important;visibility:visible!important;}
-.MuiAppBar-root>.MuiToolbar-root,.MuiAppBar-root .MuiPaper-root{
+html:not(.orp-player) :is(.MuiAppBar-root>.MuiToolbar-root,.MuiAppBar-root .MuiPaper-root){
   background:transparent!important;box-shadow:none!important;border:0!important;}
-.skinHeader,.MuiAppBar-root{position:fixed!important;top:0!important;transform:none!important;translate:none!important;}
-.skinHeader::before,.skinHeader::after,.MuiAppBar-root::before,.MuiAppBar-root::after{display:none!important;}
-.pageTitleWithDefaultLogo,.pageTitleWithLogo,img.pageTitle,.headerTabs,.headerBackButton~.pageTitle{display:none!important;}
-.orp-hide{display:none!important;}
-/* video player, login, etc.: no bar at all (the header is forced visible above, so hide it explicitly) */
-html[data-orp-mode="off"] .skinHeader,html[data-orp-mode="off"] .MuiAppBar-root,html[data-orp-mode="off"] header.MuiAppBar-root{display:none!important;}
+html:not(.orp-player) :is(.skinHeader,.MuiAppBar-root){position:fixed!important;top:0!important;transform:none!important;translate:none!important;}
+html:not(.orp-player) :is(.skinHeader::before,.skinHeader::after,.MuiAppBar-root::before,.MuiAppBar-root::after){display:none!important;}
+html:not(.orp-player) :is(.pageTitleWithDefaultLogo,.pageTitleWithLogo,img.pageTitle,.headerTabs,.headerBackButton~.pageTitle){display:none!important;}
+html:not(.orp-player) .orp-hide{display:none!important;}
 
-/* ── Plain icon buttons ── */
-.orp-btn,.orp-sbtn{
+/* login, server select, etc.: no site bar at all. The video player is excluded (orp-player), because its
+   own top bar carries the player's Back button. */
+html[data-orp-mode="off"]:not(.orp-player) :is(.skinHeader:not(.osdHeader),.MuiAppBar-root,header.MuiAppBar-root){display:none!important;}
+
+/* ── Plain icon buttons (site bar only) ── */
+html:not(.orp-player) :is(.orp-btn,.orp-sbtn){
   background:transparent!important;border:0!important;border-radius:50%!important;
   backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;
   color:var(--orp-text)!important;
   transition:background-color .15s var(--orp-ease-out);}
-.orp-btn:hover,.orp-sbtn:hover{background:var(--orp-hover)!important;}
-.orp-btn:focus-visible,.orp-sbtn:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;}
-.orp-btn .MuiAvatar-root{width:1.6rem!important;height:1.6rem!important;border-radius:var(--nf-radius,4px)!important;
+html:not(.orp-player) :is(.orp-btn,.orp-sbtn):hover{background:var(--orp-hover)!important;}
+html:not(.orp-player) :is(.orp-btn,.orp-sbtn):focus-visible{outline:2px solid #fff!important;outline-offset:2px!important;}
+html:not(.orp-player) .orp-btn .MuiAvatar-root{width:1.6rem!important;height:1.6rem!important;border-radius:var(--nf-radius,4px)!important;
   background:var(--orp-accent)!important;color:var(--orp-ink)!important;}
 
-.orp-extra,.orp-rhide{display:none!important;}
+html:not(.orp-player) :is(.orp-extra,.orp-rhide){display:none!important;}
 /* every page except Home: the stock menu + back give way to our Home + Back (profile always stays) */
 html[data-orp-mode="sub"] .orp-menu,html[data-orp-mode="sub"] .orp-back{
   visibility:hidden!important;pointer-events:none!important;}
 html[data-orp-mode="dash"] .orp-back{visibility:hidden!important;pointer-events:none!important;}
 
 /* hamburger button shows the harp (same action) */
-.orp-menu>*{display:none!important;}
-.orp-menu::after{content:"";display:block;width:24px;height:24px;background:var(--orp-accent);
+html:not(.orp-player) .orp-menu>*{display:none!important;}
+html:not(.orp-player) .orp-menu::after{content:"";display:block;width:24px;height:24px;background:var(--orp-accent);
   -webkit-mask:var(--orp-harp) center/contain no-repeat;mask:var(--orp-harp) center/contain no-repeat;}
 
 /* ── Home nav: sits INSIDE the bar, centred on the same line as the harp and profile buttons ── */
@@ -130,12 +138,20 @@ html[data-orp-mode="dash"] .orp-back{visibility:hidden!important;pointer-events:
 /* ── Other pages: Home + Back, top left, same line as the stock buttons ── */
 #orpheus-sub{position:fixed;top:calc(var(--orp-cy,24px) - var(--orp-btn,44px) / 2);left:var(--orp-edge,12px);
   z-index:1200;display:none;gap:4px;}
-html[data-orp-mode="sub"] #orpheus-sub,html[data-orp-mode="dash"] #orpheus-sub{display:flex;}
+html[data-orp-mode="sub"]:not(.orp-player) #orpheus-sub,html[data-orp-mode="dash"]:not(.orp-player) #orpheus-sub{display:flex;}
 html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12px) + var(--orp-btn,44px) + 4px);}
 #orpheus-sub .orp-sbtn{display:grid;place-items:center;width:var(--orp-btn,44px);height:var(--orp-btn,44px);
   padding:0;margin:0;cursor:pointer;text-decoration:none;box-sizing:border-box;}
 #orpheus-sub .orp-sbtn:active{transform:scale(.94);}
 #orpheus-sub .orp-sbtn.orp-sub-home{color:var(--orp-accent)!important;}
+
+/* ── Video player: fallback Back button (only added when the player has none of its own) ── */
+.orp-pback{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;margin:0 2px;padding:0;
+  border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;
+  filter:drop-shadow(0 1px 3px rgb(0 0 0 / 0.7));-webkit-tap-highlight-color:transparent;
+  transition:background-color .15s var(--orp-ease-out);}
+.orp-pback:hover,.orp-pback:focus-visible{background:rgb(255 255 255 / 0.12);}
+.orp-pback:focus-visible{outline:2px solid #fff;outline-offset:2px;}
 
 @media (max-width:${CFG.mobileMax}px){
   #orpheus-bar .orp-logo{display:none;}
@@ -177,12 +193,25 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   });
 
   const mine = (n) => bar.contains(n) || sub.contains(n);
+
+  /* The video player: detected from the route OR from its page element. While it is open, this script leaves
+     every header element alone (no classes, no measuring, no hiding). */
+  const playerOpen = () => !!document.querySelector('#videoOsdPage:not(.hide)');
+  const isPlayer = () => CFG.playerHash.test(location.hash || '') || playerOpen();
+  const inPlayer = (n) => isPlayer() || !!(n.closest && n.closest('.osdHeader, .videoOsd-appBar'));
   const labelOf = (b) => ((b.getAttribute('aria-label') || '') + ' ' + (b.getAttribute('title') || '')).toLowerCase();
+
+  function syncPlayerFlag() {
+    const on = isPlayer();
+    const c = document.documentElement.classList;
+    if (c.contains('orp-player') !== on) c.toggle('orp-player', on);
+  }
 
   /* ═══ 5. Stock header ═══ */
 
   function stockHeaders() {
-    return Array.from(document.querySelectorAll('.MuiAppBar-root, .skinHeader, header')).filter((h) => !mine(h));
+    return Array.from(document.querySelectorAll('.MuiAppBar-root, .skinHeader, header'))
+      .filter((h) => !mine(h) && !inPlayer(h));
   }
   function topHeaders() {
     const w = window.innerWidth, all = stockHeaders();
@@ -201,7 +230,8 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   };
 
   function findStockUser() {
-    const av = document.querySelector('.MuiAppBar-root .MuiAvatar-root, .skinHeader .MuiAvatar-root, .headerUserButton');
+    const av = Array.from(document.querySelectorAll('.MuiAppBar-root .MuiAvatar-root, .skinHeader .MuiAvatar-root, .headerUserButton'))
+      .find((n) => !inPlayer(n));
     return av ? (av.closest('button, a') || av) : null;
   }
   let stockUser = null;
@@ -213,7 +243,7 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
     const sel = 'a, button, img, h1, h2, h3, .MuiTypography-root, [role="tab"], [class*="pageTitle"]';
     topHeaders().forEach((hdr) => {
       hdr.querySelectorAll(sel).forEach((n) => {
-        if (inSecond(n)) return;
+        if (inSecond(n) || inPlayer(n)) return;
         const label = labelOf(n);
         const r = n.getBoundingClientRect();
         const isUser = !!stockUser && (n === stockUser || stockUser.contains(n) || n.contains(stockUser));
@@ -240,7 +270,7 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   function classifyLeft() {
     const w = window.innerWidth, hs = topHeaders();
     const fresh = Array.from(document.querySelectorAll('.orp-btn')).filter((b) => {
-      if (mine(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return false;
+      if (mine(b) || inPlayer(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return false;
       if (ROLES.some((c) => b.classList.contains(c))) return false;
       const r = b.getBoundingClientRect();
       return r.width && r.top < 160 && (r.left + r.width / 2) < w * 0.5;
@@ -262,7 +292,7 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   function classifyRight() {
     const w = window.innerWidth, hs = topHeaders();
     const fresh = Array.from(document.querySelectorAll('.orp-btn')).filter((b) => {
-      if (mine(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return false;
+      if (mine(b) || inPlayer(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return false;
       if (ROLES.some((c) => b.classList.contains(c))) return false;
       const r = b.getBoundingClientRect();
       return r.width && r.top < 160 && (r.left + r.width / 2) >= w * 0.5;
@@ -299,7 +329,7 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   function align() {
     const w = window.innerWidth, hs = topHeaders();
     const usable = (b) => {
-      if (!b || mine(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return null;
+      if (!b || mine(b) || inPlayer(b) || b.closest('.orp-hide') || !inHeader(b, hs) || inSecond(b)) return null;
       const r = b.getBoundingClientRect();
       return r.width && r.height && r.top < 160 ? r : null;
     };
@@ -340,7 +370,38 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
     syncWordmark();
   }
 
-  /* ═══ 8. Lifecycle ═══ */
+  /* ═══ 8. Video player Back button ═══ */
+
+  /* The player's own header normally has a Back button. If, for any reason, there is none, add one INSIDE that
+     header so it shows and hides together with the rest of the player UI (nothing is forced visible). */
+  function ensurePlayerBack() {
+    const ours = document.getElementById('orpheus-player-back');
+    if (!isPlayer()) { if (ours) ours.remove(); return; }
+    const host = document.querySelector('.osdHeader .videoOsd-appBar') ||
+      document.querySelector('.osdHeader') ||
+      document.querySelector('#videoOsdPage .MuiAppBar-root .MuiToolbar-root');
+    if (!host) return;
+    const hasStock = Array.from(host.querySelectorAll('button, a')).some((b) =>
+      b !== ours && (b.classList.contains('headerBackButton') || /back|indietro/.test(labelOf(b)) ||
+      !!b.querySelector('[data-testid^="ArrowBack"], .arrow_back')));
+    if (hasStock) { if (ours) ours.remove(); return; }
+    if (ours && host.contains(ours)) return;
+    if (ours) ours.remove();
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'orpheus-player-back';
+    btn.className = 'orp-pback';
+    btn.title = 'Back';
+    btn.setAttribute('aria-label', 'Back');
+    btn.innerHTML = svg('back', 24);
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (history.length > 1) history.back(); else location.hash = '#/home';
+    });
+    host.insertBefore(btn, host.firstChild);
+  }
+
+  /* ═══ 9. Lifecycle ═══ */
 
   let lastRoute = null;
   function routeChanged() {
@@ -354,10 +415,13 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   /* Debounced: many DOM changes in a row (carousels, lists loading) cost a single pass after things settle. */
   let timer = 0;
   function refresh() {
+    syncPlayerFlag();
     routeChanged();
+    ensurePlayerBack();
     if (timer) return;
     timer = setTimeout(() => {
       timer = 0;
+      if (isPlayer()) return;                              /* never touch the header while the player is open */
       requestAnimationFrame(() => { cleanStock(); syncMenuFlag(); align(); });
     }, 150);
   }
@@ -366,7 +430,8 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
      rows and carousels load. It re-attaches if the header is ever replaced. */
   let hdrObs = null, hdrTarget = null;
   function watchHeader() {
-    const h = document.querySelector('.MuiAppBar-root, .skinHeader');
+    const h = Array.from(document.querySelectorAll('.MuiAppBar-root, .skinHeader'))
+      .find((n) => !mine(n) && !inPlayer(n));
     if (!h || (h === hdrTarget && h.isConnected)) return;
     if (hdrObs) hdrObs.disconnect();
     hdrTarget = h;
@@ -388,8 +453,14 @@ html[data-orp-mode="dash"].orp-has-menu #orpheus-sub{left:calc(var(--orp-edge,12
   window.addEventListener('hashchange', refresh);
   window.addEventListener('resize', refresh);
   window.addEventListener('orientationchange', refresh);
-  /* cheap checks only: a string compare for the route and one querySelector for the header; no layout reads */
-  setInterval(() => { if (routeChanged()) refresh(); watchHeader(); }, 500);
+  /* cheap checks only: a string compare for the route, a couple of querySelectors; no layout reads */
+  setInterval(() => {
+    syncPlayerFlag();
+    if (routeChanged()) refresh();
+    ensurePlayerBack();
+    watchHeader();
+  }, 500);
+  syncPlayerFlag();
   watchHeader();
   refresh();
 })();
