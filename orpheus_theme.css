@@ -4654,641 +4654,6 @@ body:has(.userPreferencesPage:not(.hide)) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
- * 7g. Mobile layout
- * ═══════════════════════════════════════════════════════════════════════ */
-
-.layout-mobile {
-    --nf-m-top: calc(var(--nf-appbar) + env(safe-area-inset-top));
-    --nf-m-hero: 50vh;
-    --nf-m-logo: 20vh;
-    --nf-fs-h2: clamp(1.25rem, 1rem + 0.75vw, 1.6rem);
-}
-
-.layout-mobile .MuiAppBar-root.MuiAppBar-positionFixed {
-    padding-top: env(safe-area-inset-top);
-}
-
-.layout-mobile .MuiAppBar-root.MuiAppBar-positionFixed + div[aria-hidden="true"] {
-    min-height: var(--nf-m-top);
-}
-
-/* ── Detail pages: hero ──────────────────────────────────────────────────── */
-
-.layout-mobile #itemDetailPage .itemBackdrop {
-    height: var(--nf-m-hero);
-    margin-top: calc(-1 * var(--nf-m-top)) !important; /* core: -48px !important */
-    background-position: center 20%;
-}
-
-.layout-mobile #itemDetailPage .itemBackdrop:not([style*="url("], [data-src], .lazy, .lazy-hidden) {
-    height: var(--nf-m-top);
-}
-
-.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop[style*="url("] {
-    height: calc(var(--nf-m-top) + 12rem);
-    overflow: hidden;
-    isolation: isolate;
-    background-size: 0 0;
-}
-
-.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop::before {
-    background: linear-gradient(0deg, var(--nf-bg) 0, rgb(var(--nf-bg-rgb) / 0.5) 15%, transparent 40%);
-}
-
-.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)):has(.itemBackdrop[style*="url("]) .detailPageWrapperContainer {
-    position: relative;
-    margin-top: -10rem;
-    background: none;
-}
-
-.layout-mobile #itemDetailPage:has(.programGuideSection:not(.hide)) .itemBackdrop::after {
-    content: "";
-    position: absolute;
-    inset: -3rem;
-    z-index: -1;
-    background: inherit;
-    background-size: 5rem 5rem;
-    background-repeat: repeat;
-    filter: blur(40px) saturate(2) brightness(1.15);
-}
-
-.layout-mobile #itemDetailPage .itemBackdrop::before {
-    background:
-        linear-gradient(180deg, rgb(0 0 0 / 0.55), transparent 25%),
-        linear-gradient(0deg,
-            var(--nf-bg) 0,
-            var(--nf-bg) 4%,
-            rgb(var(--nf-bg-rgb) / 0.88) 22%,
-            rgb(var(--nf-bg-rgb) / 0.66) 34%,
-            rgb(var(--nf-bg-rgb) / 0.38) 48%,
-            rgb(var(--nf-bg-rgb) / 0.14) 70%,
-            transparent 90%);
-}
-
-.layout-mobile #itemDetailPage .detailLogo:not(.hide) {
-    display: block;
-    left: 0;
-    right: 0;
-    top: calc(var(--nf-m-hero) - var(--nf-m-top) - var(--nf-m-logo) - 0.5rem);
-    width: min(80%, 28rem);
-    height: var(--nf-m-logo);
-    margin: 0 auto;
-    background-position: center bottom;
-    background-size: contain;
-    filter: drop-shadow(0 2px 12px rgb(0 0 0 / 0.5));
-    z-index: 2;
-}
-
-.layout-mobile #itemDetailPage .detailLogo:not(.hide) ~ .detailPageWrapperContainer .nameContainer > :is(.parentName, .itemName.parentNameLast) {
-    display: none;
-}
-
-.layout-mobile #itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer {
-    display: none;
-}
-
-.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer {
-    display: flex;
-    justify-content: center;
-    margin: 1.5rem 0 1.25rem;
-}
-
-.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer .card,
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .card {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    left: auto;
-    width: min(45%, 13rem);
-    max-width: none;
-    margin: 0;
-    filter: none;
-}
-
-.layout-mobile #itemDetailPage:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide)) .infoWrapper > .detailImageContainer .cardScalable,
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .cardScalable {
-    overflow: hidden;
-    border-radius: var(--nf-radius-lg);
-    box-shadow: 0 0 0 1px var(--nf-line), var(--nf-shadow-3);
-}
-
-.layout-mobile #itemDetailPage .detailRibbon {
-    padding: 0 var(--nf-gutter);
-    text-align: center;
-}
-
-.layout-mobile #itemDetailPage .infoWrapper {
-    padding-left: 0;
-}
-
-.layout-mobile #itemDetailPage :is(.nameContainer, .itemMiscInfo, .mainDetailButtons) {
-    justify-content: center;
-    text-align: center;
-}
-
-.layout-mobile #itemDetailPage .itemName {
-    font-size: 1.75rem;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-}
-
-.layout-mobile #itemDetailPage .nameContainer > .itemName.originalTitle {
-    margin: 0.3em 0 0;
-    color: var(--nf-text-dim);
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.layout-mobile #itemDetailPage .itemMiscInfo-primary {
-    flex-wrap: wrap;
-    gap: 0.25em 0.75em;
-    margin: 0.6rem 0 0 !important; /* core sets margin-bottom inline */
-    color: var(--nf-text-2);
-}
-
-.layout-mobile #itemDetailPage .itemMiscInfo-primary > .mediaInfoItem {
-    margin: 0;
-}
-
-.layout-mobile #itemDetailPage .mainDetailButtons {
-    flex-wrap: wrap;
-    gap: 0.65em;
-    margin: 1.25rem 0 0;
-    padding: 0;
-}
-
-/* Play on its own full-width row, the round buttons centred below */
-.layout-mobile #itemDetailPage .mainDetailButtons .detailButton.btnPlay {
-    order: -1;
-    flex: 1 1 100%;
-    justify-content: center;
-    padding: 0 1em !important;
-}
-
-/* ── Detail pages: episodes ──────────────────────────────────────────────── */
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) {
-    --nf-m-still: min(78vw, 26rem);
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .detailLogo {
-    display: none;
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop {
-    height: calc(var(--nf-m-top) + 2rem + var(--nf-m-still) * 9 / 16);
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop::before {
-    background:
-        linear-gradient(180deg, rgb(0 0 0 / 0.6), transparent 25%),
-        linear-gradient(0deg,
-            var(--nf-bg) 0,
-            var(--nf-bg) 4%,
-            rgb(var(--nf-bg-rgb) / 0.92) 22%,
-            rgb(var(--nf-bg-rgb) / 0.83) 45%,
-            rgb(var(--nf-bg-rgb) / 0.69) 75%,
-            rgb(var(--nf-bg-rgb) / 0.62) 100%);
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    margin: calc(-0.5rem - var(--nf-m-still) * 9 / 16) 0 1.25rem;
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer .card {
-    z-index: auto; /* core's 3 puts the still's shadow over the title */
-    width: var(--nf-m-still);
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer {
-    position: relative; /* above the still's shadow */
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer > .parentName {
-    display: block;
-    margin: 0;
-    font-size: 1.75rem;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-}
-
-.layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .nameContainer > .parentName ~ .itemName:not(.originalTitle) {
-    margin: 0.35em 0 0;
-    color: var(--nf-text-2);
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 1.3;
-}
-
-/* ── Detail pages: below the hero ────────────────────────────────────────── */
-
-.layout-mobile #itemDetailPage .detailPagePrimaryContent {
-    padding: 1.75rem var(--nf-gutter) 0 !important; /* core: 5% !important */
-}
-
-.layout-mobile #itemDetailPage :is(.detailSectionContent > .tagline, .detailSectionContent .overview, .itemDetailsGroup) {
-    max-width: none;
-}
-
-/* ── Detail pages: episode list ──────────────────────────────────────────── */
-
-.layout-mobile #itemDetailPage .listItem-largeImage {
-    display: block;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    background: none;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage > .listItem-content {
-    align-items: center;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemImage-large {
-    flex: none;
-    width: min(40%, 11rem);
-    height: auto;
-    aspect-ratio: 16 / 9;
-    margin: 0;
-    border-radius: var(--nf-radius);
-    background-size: cover;
-    overflow: hidden;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemImageButton {
-    width: 2rem;
-    height: 2rem;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemBody {
-    min-width: 0;
-    padding: 0 0.25rem 0 0.85rem;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemBodyText:first-child {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    color: var(--nf-text);
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25em 0.75em;
-    margin-top: 0.3em;
-    color: var(--nf-text-dim);
-    font-size: 0.8rem;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo > .mediaInfoItem {
-    margin: 0;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemMediaInfo > :is(.starRatingContainer, .endsAt) {
-    display: none;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listViewUserDataButtons {
-    gap: 0;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage .listItemButton {
-    padding: 0.35em;
-    color: var(--nf-text-mute);
-    font-size: 0.85em;
-}
-
-.layout-mobile #itemDetailPage .listItem-largeImage :is(.listItem-bottomoverview, .listItem-overview) {
-    margin: 0.5rem 0 0;
-    padding: 0;
-    color: var(--nf-text-mute);
-    font-size: 0.85rem;
-    line-height: 1.45;
-}
-
-/* ── Navigation drawer ───────────────────────────────────────────────────── */
-.MuiDrawer-modal > .MuiBackdrop-root {
-    background: rgb(0 0 0 / 0.7);
-}
-
-.MuiDrawer-paper:has(> .MuiBox-root) {
-    width: min(80vw, 18rem);
-    padding-top: env(safe-area-inset-top);
-    border-right: 0;
-    outline: 0; /* MUI focuses the sheet on open */
-    box-shadow: var(--nf-shadow-3);
-}
-
-.MuiDrawer-paper > .MuiBox-root > .MuiList-root:first-child > li:first-child > a {
-    min-height: var(--nf-appbar);
-    margin-bottom: 0.5rem;
-    background: none;
-}
-
-.MuiDrawer-paper > .MuiBox-root > .MuiList-root:first-child > li:first-child > a > * {
-    display: none;
-}
-
-.MuiDrawer-paper > .MuiBox-root .MuiListItemButton-root {
-    margin: 0;
-    padding: 0.8rem 1.25rem;
-    border-radius: 0;
-}
-
-.MuiDrawer-paper > .MuiBox-root .MuiListItemButton-root.Mui-selected {
-    background: none;
-    box-shadow: inset 3px 0 0 var(--nf-text);
-}
-
-.MuiDrawer-paper > .MuiBox-root .MuiListItemIcon-root {
-    min-width: 2.5rem;
-}
-
-.MuiDrawer-paper > .MuiBox-root .MuiListItemText-primary {
-    font-size: 1rem;
-}
-
-.MuiDrawer-paper > .MuiBox-root > .MuiDivider-root {
-    margin: 0.5rem 1.25rem;
-    border-color: var(--nf-line);
-}
-
-/* ── Rows, guide ─────────────────────────────────────────────────────────── */
-
-.layout-mobile a.clearLink > .sectionTitle + svg {
-    padding-top: 0.5em;
-}
-
-.layout-mobile .tvguide :is(.channelsContainer, .guide-channelTimeslotHeader) {
-    width: 6.5rem;
-}
-
-.layout-mobile .tvguide .guideChannelImage {
-    right: 0.5rem;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
- * 7h. Detail page layers (scroll recede, full-screen mobile hero, mobile actor page)
- * ═══════════════════════════════════════════════════════════════════════ */
-
-@supports selector(:has(*)) {
-
-    .layout-mobile {
-        --nf-m-full: 100vh;
-        --nf-m-overlap: 34vh;
-        --nf-m-fade: 10vh;
-        --nf-m-hero: calc(var(--nf-m-full) - var(--nf-m-overlap));
-    }
-
-    @supports (height: 100svh) {
-        .layout-mobile { --nf-m-full: 100svh; }
-    }
-
-    @supports (animation-timeline: scroll()) {
-        @keyframes jf-hero-recede {
-            to {
-                filter: blur(14px) brightness(0.5);
-                transform: scale(1.06);
-            }
-        }
-
-        @keyframes jf-logo-tuck {
-            to {
-                opacity: 0.15;
-                transform: translateY(-6vh) scale(0.72);
-            }
-        }
-
-        #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .itemBackdrop {
-            animation: jf-hero-recede linear both;
-            animation-timeline: scroll(nearest block);
-            animation-range: 0 65vh;
-            will-change: filter, transform;
-        }
-
-        .layout-desktop #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .detailLogo {
-            transform-origin: left bottom;
-            animation: jf-logo-tuck linear both;
-            animation-timeline: scroll(nearest block);
-            animation-range: 0 45vh;
-        }
-    }
-
-    /* Mobile: backdrop stretched behind meta row and buttons */
-    .layout-mobile #itemDetailPage .itemBackdrop[style*="url("] {
-        height: var(--nf-m-full);
-        margin-bottom: calc(-1 * var(--nf-m-overlap));
-        background-size: cover;
-        background-position: center 20%;
-    }
-
-    .layout-mobile #itemDetailPage .detailPageWrapperContainer {
-        position: relative;
-        z-index: 2;
-        background: none;
-    }
-
-    .layout-mobile #itemDetailPage .itemBackdrop[style*="url("] ~ .detailPageWrapperContainer::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: calc(-1 * var(--nf-m-fade));
-        height: calc(var(--nf-m-fade) + var(--nf-m-overlap));
-        z-index: -1;
-        pointer-events: none;
-        background: linear-gradient(180deg,
-            transparent 0,
-            rgb(var(--nf-bg-rgb) / 0.18) 45%,
-            rgb(var(--nf-bg-rgb) / 0.4) 100%);
-    }
-
-    .layout-mobile #itemDetailPage .detailPageWrapperContainer :is(.itemMiscInfo, .nameContainer) {
-        text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
-    }
-
-    .layout-mobile #itemDetailPage .itemBackdrop[style*="url("]::before {
-        background:
-            linear-gradient(180deg, rgb(0 0 0 / 0.5), transparent 22%),
-            linear-gradient(0deg,
-                var(--nf-bg) 0,
-                rgb(var(--nf-bg-rgb) / 0.85) 12%,
-                rgb(var(--nf-bg-rgb) / 0.5) 30%,
-                transparent 55%);
-    }
-
-    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop[style*="url("] {
-        height: var(--nf-m-full);
-    }
-
-    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .itemBackdrop[style*="url("]::before {
-        background:
-            linear-gradient(180deg, rgb(0 0 0 / 0.5), transparent 22%),
-            linear-gradient(0deg,
-                var(--nf-bg) 0,
-                rgb(var(--nf-bg-rgb) / 0.85) 12%,
-                rgb(var(--nf-bg-rgb) / 0.5) 30%,
-                transparent 55%);
-    }
-
-    .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):has(.nameContainer > .parentName):not(:has(.recordingFields:not(.hide) .recordingButton)) .infoWrapper > .detailImageContainer {
-        display: none !important;
-    }
-
-    @supports (animation-timeline: scroll()) {
-        @keyframes jf-hero-out-m {
-            to {
-                filter: blur(22px) brightness(0.35);
-                transform: scale(1.12);
-                opacity: 0.1;
-            }
-        }
-
-        @keyframes jf-logo-out-m {
-            to {
-                opacity: 0;
-                transform: translateY(-5vh) scale(0.85);
-            }
-        }
-
-        .layout-mobile #itemDetailPage:has(.detailImageContainer :is(.portraitCard, .backdropCard)) .itemBackdrop[style*="url("] {
-            animation: jf-hero-out-m linear both;
-            animation-timeline: scroll(nearest block);
-            animation-range: 0 70vh;
-        }
-
-        .layout-mobile #itemDetailPage .detailLogo:not(.hide) {
-            animation: jf-logo-out-m linear both;
-            animation-timeline: scroll(nearest block);
-            animation-range: 0 35vh;
-        }
-    }
-
-    /* ---- Actor pages: mobile portrait ---- */
-    @media (orientation: portrait) {
-        .layout-mobile {
-            --nf-a-hero: min(145vw, 82vh);
-            --nf-a-overlap: 26vw;
-            --nf-a-gap: 12px;
-            --nf-a-radius: 26px;
-        }
-
-        @supports (height: 82svh) {
-            .layout-mobile { --nf-a-hero: min(145vw, 82svh); }
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer {
-            display: block !important;
-            position: relative !important;
-            z-index: 0;
-            box-sizing: border-box;
-            width: calc(100vw - 2 * var(--nf-a-gap)) !important;
-            max-width: none !important;
-            height: var(--nf-a-hero) !important;
-            margin: 0.5rem 0 calc(-1 * var(--nf-a-overlap)) calc(50% - 50vw + var(--nf-a-gap)) !important;
-            overflow: hidden;
-            border-radius: var(--nf-a-radius);
-            -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgb(0 0 0 / 0.6) 72%, rgb(0 0 0 / 0.22) 88%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgb(0 0 0 / 0.6) 72%, rgb(0 0 0 / 0.22) 88%, transparent 100%);
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            background: linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 18%);
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer .card {
-            position: absolute !important;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none !important;
-            margin: 0 !important;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer :is(.cardBox, .cardScalable, .cardContent, .cardImageContainer) {
-            position: absolute !important;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
-            padding: 0 !important;
-            aspect-ratio: auto !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer .cardImageContainer {
-            background-size: cover !important;
-            background-position: center 12% !important;
-            background-repeat: no-repeat !important;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer :is(.cardPadder, .cardOverlayContainer, .cardText) {
-            display: none !important;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) :is(.infoWrapper > :not(.detailImageContainer), .detailPagePrimaryContent, .detailPageSecondaryContainer, .detailSection, .detailRibbon) {
-            position: relative;
-            z-index: 1;
-            background: transparent !important;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .nameContainer {
-            text-shadow: 0 2px 16px rgb(0 0 0 / 0.8), 0 0 4px rgb(0 0 0 / 0.5);
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .nameContainer .itemName {
-            font-size: 2.25rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .mainDetailButtons .detailButton {
-            border: 2px solid var(--nf-outline);
-            border-radius: 50%;
-            background: var(--nf-fill-disc);
-            color: #fff;
-        }
-
-        .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .detailPagePrimaryContent {
-            padding: 1.5rem 5% 0 !important;
-        }
-
-        @supports (animation-timeline: scroll()) {
-            @keyframes jf-actor-out {
-                to {
-                    filter: blur(22px) brightness(0.35);
-                    transform: scale(1.08);
-                    opacity: 0;
-                }
-            }
-
-            .layout-mobile #itemDetailPage:has(.infoWrapper > .detailImageContainer .cardImageIcon.person) .infoWrapper > .detailImageContainer {
-                animation: jf-actor-out linear both;
-                animation-timeline: scroll(nearest block);
-                animation-range: 0 45vh;
-            }
-        }
-    }
-
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
  * 7i. Sign-in
  * ═══════════════════════════════════════════════════════════════════════ */
 
@@ -7384,4 +6749,331 @@ html body .upNextContainer .upNextDialog-buttons button * {
 /* 7. Fallback Back button added by the Orpheus JS (only exists if the player has no Back button of its own) */
 :is(html.orp-player, html:has(#videoOsdPage:not(.hide))) .osdHeader .orp-pback {
     color: #fff;
+}
+/* ═══════════════════════════════════════════════════════════════════════
+ * 14. Detail page: full backdrop, poster left, title right   (v3)
+ *
+ * REPLACES section 14 v2. Paste at the very end of Custom CSS.
+ * Actor pages and channel pages are left alone.
+ *
+ * v3 changes
+ *  - Phone, movies/series: title, meta and buttons all sit in the black
+ *    space to the right of the poster, left-aligned, bottom flush with it.
+ *  - Phone, episodes: buttons beside the thumbnail, series + episode title
+ *    + meta underneath it (swapped).
+ *  - Wide screens: whole hero raised (--d-raise) and buttons a bit bigger
+ *    (--d-btn-fs), for movies, series and episodes.
+ *
+ * Knobs:  --d-btn-fs (button size)   --d-raise (wide screens: lift)
+ *         --d-btn-row (height reserved for the button row)
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+#itemDetailPage#itemDetailPage {
+    --d-bd-h: 56.25vw;                         /* backdrop height = 16:9 of the width */
+    --d-pull: 0px;                             /* 0 = backdrop starts under the header bar */
+    --d-poster-w: clamp(7rem, 31vw, 14rem);    /* poster width */
+    --d-raise: 0rem;                           /* extra lift of the whole hero (used on wide screens) */
+    --d-lap: calc(var(--d-poster-w) * 0.5 + var(--d-raise));   /* how far the poster rises onto the backdrop */
+    --d-gap: clamp(1rem, 2.4vw, 2rem);         /* poster <-> text gap */
+    --d-btn-row: 2.4rem;                       /* height of the button row beside the poster */
+    --d-lift: 1.6rem;                          /* phone: lifts title + buttons above the poster's bottom edge */
+    --d-drop: 0.7rem;                          /* phone: moves the buttons back down from the title (0 = tight under it) */
+    --d-btn-fs: 0.84rem;                       /* button size (everything in the row scales with it) */
+}
+
+/* episodes use a 16:9 still instead of a poster */
+#itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard) {
+    --d-poster-w: clamp(8.5rem, 36vw, 20rem);
+    --d-lap: calc(var(--d-poster-w) * 0.3 + var(--d-raise));
+}
+
+/* ── Backdrop ────────────────────────────────────────────────────────────── */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop[style*="url("] {
+    width: 100% !important;
+    height: var(--d-bd-h) !important;
+    margin: calc(-1 * var(--d-pull)) auto calc(-1 * var(--d-lap)) !important;
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop::before {
+    background:
+        linear-gradient(180deg, rgb(0 0 0 / 0.45), transparent 18%),
+        linear-gradient(0deg, var(--nf-bg), transparent 9%) !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageWrapperContainer::before {
+    content: none !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailLogo {
+    display: none !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPageWrapperContainer {
+    position: relative;
+    z-index: 2;
+    background: none;
+}
+
+/* ── Info block: poster | title + meta + (reserved) button row ───────────── */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailRibbon {
+    position: relative;
+    padding: 0 var(--nf-gutter);
+    text-align: left;
+    text-shadow: none;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper {
+    display: grid;
+    grid-template-columns: var(--d-poster-w) minmax(0, 1fr);
+    grid-template-rows: 1fr repeat(6, auto);   /* first row is a spacer: text sits at the poster's bottom */
+    column-gap: var(--d-gap);
+    align-items: end;
+    padding: 0;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper::before {
+    content: "";
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* room for the buttons, level with the poster's bottom edge */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper::after {
+    content: "";
+    grid-column: 2;
+    height: calc(var(--d-btn-row) + var(--d-lift));
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > :not(.detailImageContainer) {
+    grid-column: 2;
+    min-width: 0;
+}
+
+/* poster */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer {
+    display: block !important;
+    position: relative !important;
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: end;
+    width: var(--d-poster-w);
+    margin: 0 !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer .card {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    filter: none;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer .cardScalable {
+    overflow: hidden;
+    border-radius: var(--nf-radius-lg);
+    box-shadow:
+        0 0 0 1px rgb(var(--nf-lav-rgb) / 0.35),
+        0 0.8rem 1.6rem rgb(0 0 0 / 0.7),
+        0 0 1.6rem rgb(var(--nf-lav-rgb) / 0.18);
+}
+
+/* title: everything in the text column is left-aligned */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) :is(.nameContainer, .itemMiscInfo) {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer {
+    align-items: flex-start !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > :is(.parentName, .itemName.parentNameLast) {
+    display: block !important;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer .itemName {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.4rem, 0.9rem + 1.8vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    text-align: left;
+    white-space: normal;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.7);
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > .parentName {
+    margin-bottom: 0.15em;
+    color: var(--nf-lav);
+    font-size: clamp(0.8rem, 0.7rem + 0.35vw, 1.05rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer > .itemName.originalTitle {
+    color: var(--nf-text-dim);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* episodes: smaller episode title (series name above it is unchanged) */
+#itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard) .nameContainer .itemName:not(.parentName):not(.originalTitle) {
+    font-size: clamp(1.05rem, 0.8rem + 1vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* meta row: year, runtime, rating, star */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary {
+    gap: 0.25em 0.7em;
+    margin: 0.45rem 0 0.1rem !important;
+    color: var(--nf-text-2);
+    font-size: clamp(0.8rem, 0.72rem + 0.3vw, 1rem);
+    font-weight: 600;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary .mediaInfoOfficialRating {
+    padding: 0.05em 0.45em;
+    border-color: rgb(var(--nf-lav-rgb) / 0.6);
+    color: var(--nf-lav);
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemMiscInfo-primary .starIcon {
+    color: var(--nf-lav);
+}
+
+/* ── Buttons: discs + white Play, pulled up beside the poster ────────────── */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .mainDetailButtons {
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+    align-items: flex-end;                     /* buttons sit flush with the poster's bottom edge */
+    align-content: flex-end;
+    gap: 0.4em;
+    min-height: var(--d-btn-row);
+    margin: calc(-1 * (var(--d-btn-row) + var(--d-lift) - var(--d-drop))) 0 calc(var(--d-lift) - var(--d-drop)) calc(var(--d-poster-w) + var(--d-gap)) !important;
+    padding: 0 !important;
+    font-size: var(--d-btn-fs);                /* discs are sized in em: this scales the whole row */
+}
+
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .mainDetailButtons .detailButton.btnPlay {
+    order: -1;
+    flex: 0 0 auto;
+    justify-content: center;
+    height: calc(var(--d-btn-fs) * 2.2) !important;   /* matches the round buttons */
+    min-height: 0 !important;
+    font-size: 0.95em !important;
+    padding: 0 1.3em 0 1em !important;
+}
+
+/* ── Below the hero ──────────────────────────────────────────────────────── */
+#itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContent {
+    padding: 1.5rem var(--nf-gutter) 0 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * Phone / portrait, EPISODES: buttons beside the thumbnail,
+ * series name + episode title + meta underneath it
+ * ═══════════════════════════════════════════════════════════════════════ */
+@media (max-aspect-ratio: 11/10) {
+    /* episodes keep the original (smaller) button size so the row fits beside the thumbnail */
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard) {
+        --d-btn-fs: 0.76rem;
+    }
+
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper {
+        grid-template-rows: auto;
+        align-items: start;
+    }
+
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper::before,
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper::after {
+        content: none;
+    }
+
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > .detailImageContainer {
+        grid-row: 1;
+        align-self: start;
+    }
+
+    /* text: full width, under the thumbnail */
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .infoWrapper > :not(.detailImageContainer) {
+        grid-column: 1 / -1;
+    }
+
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .nameContainer {
+        margin-top: 0.8rem;
+    }
+
+    /* buttons: top-right of the thumbnail, bottom flush with it */
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard):not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .mainDetailButtons {
+        position: absolute;
+        top: 0;
+        left: calc(var(--nf-gutter) + var(--d-poster-w) + var(--d-gap));
+        right: var(--nf-gutter);
+        height: calc(var(--d-poster-w) * 0.5625);   /* thumbnail is 16:9 */
+        min-height: 0;
+        margin: 0 !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * Wide screens (tablet landscape, desktop): full-width hero
+ * ═══════════════════════════════════════════════════════════════════════ */
+@media (min-aspect-ratio: 11/10) {
+    #itemDetailPage#itemDetailPage {
+        --d-hdr: 3.75rem;                      /* header bar height: adjust if the backdrop ever overshoots the screen */
+        --d-bd-h: min(56.25vw, calc(100vh - var(--d-hdr)));
+        --d-poster-w: clamp(8rem, 14vw, 15rem);
+        --d-raise: 2rem;                       /* lifts poster, title and buttons: raise/lower to taste */
+        --d-lap: calc(var(--d-poster-w) * 1.5 + 3rem + var(--d-raise));
+        --d-btn-row: 3.4rem;
+        --d-btn-fs: 0.9rem;                    /* was 0.8rem */
+        --d-lift: 0rem;
+        --d-drop: 0rem;
+    }
+
+    #itemDetailPage#itemDetailPage:has(.infoWrapper > .detailImageContainer .backdropCard) {
+        --d-poster-w: clamp(12rem, 26vw, 26rem);
+        --d-lap: calc(var(--d-poster-w) * 0.5625 + 2.5rem + var(--d-raise));
+    }
+
+    #itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop[style*="url("] {
+        width: 100% !important;
+        background-size: cover !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    #itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .itemBackdrop::before {
+        background:
+            linear-gradient(180deg, rgb(0 0 0 / 0.45), transparent 14%),
+            linear-gradient(0deg, var(--nf-bg) 0%, rgb(0 0 0 / 0) 38%) !important;
+    }
+
+    /* Play: normal thickness, just longer */
+    #itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .mainDetailButtons .detailButton.btnPlay {
+        min-width: calc(var(--d-btn-fs) * 6.75);
+        padding: 0 1.4em 0 1.1em !important;
+    }
+
+    #itemDetailPage#itemDetailPage:not(:has(.detailImageContainer .cardImageIcon.person, .programGuideSection:not(.hide))) .detailPagePrimaryContent {
+        padding-top: 7rem !important;          /* pushes video details below the fold: raise for more, lower for less */
+    }
 }
